@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <script type="text/javascript" src="dist/index.js"></script>
+        <script type="text/javascript">
+async function compileAndRun() {
+    let e = await AVR8js.build(document.getElementById("code").value, []);
+    console.log(e);
+    if (e.stderr) {
+        let msgs = []
+
+        for(let i = 0; i<name.length; i++) {
+            msgs.push([])
+        }
+
+        let iter = e.stderr.matchAll(/(\w+\.\w+):(\d+):(\d+): ([^:]+):(.+)/g)
+
+        for(let err=iter.next(); !err.done; err=iter.next()) {
+            msgs[name.findIndex((e) => e==err.value[1])].push({
+            row :    parseInt(err.value[2]) - 1,
+            column : parseInt(err.value[3]),
+            text :   err.value[5],
+            type :   err.value[4]
+            })
+        }
+        throw new Error(e.stderr + " " + msgs);
+    } else {
+        console.debug(e.stdout);
+        if (e.hex) {
+            let runner = AVR8js.execute(e.hex, console.log, "leId", undefined, document.getElementById("cyclesPerFrame").value*1, document.getElementById("frameDelayMilliseconds").value*1);
+        } else {
+            throw new Error("no hex!");
+        }
+    }
+}
+        
+        
+        
+        </script>
+    </head>
+    <body onload='try {new Function("(a = 0) => a")} catch(e) {alert("Your browser does not support ES6! Please update")}'>
+        <h1>Timer</h1>
+        <textarea id="code" rows="30" cols="50">
+#ifndef F_CPU
+#define F_CPU 16000000UL // 16 MHz clock speed
+#endif
+
+//16.000.000 Hz / 1024 = 15.625
+
+int main(void)
+{
+  DDRB |= (1 << PB5);  // Ausgabe LED festlegen
+  // Timer 1 Konfiguration
+  //         keine Pins verbunden
+  TCCR1A  = 0;
+  TCCR1B  = 0;
+  // Timerwert
+  TCNT1   = 0;
+  TCCR1B |= (1 << CS12) | (1 << CS10);  // 1024 als Prescale-Wert
+
+  while (1) //infinite loop
+  {
+     if (TCNT1>15625){
+        TCNT1 = 0;  
+        PINB = (1 << PB5); // LED ein und aus
+     }
+  }
+}
+        </textarea><br>
+        <div id="leId">
+            cyclesPerFrame:<input type="text" id="cyclesPerFrame" value="100000"><br>
+            interFrameDelayMilliseconds:<input type="text" id="frameDelayMilliseconds" value="0"><br>
+            <input type="button" value="RUN" onclick="this.disabled=true; compileAndRun()"><br>
+            <wokwi-led color="red"   pin="13" label="13"></wokwi-led>
+            <span id="simulation-time"></span><br>
+            <b>PORTB: </b><memout-element type="bin" address="0x25"></memout-element> <b>DDRB: </b><memout-element type="bin" address="0x24"></memout-element><br>
+            <b>TCNT1 H: </b><memout-element type="bin" address="0x85"></memout-element> <b>L: </b><memout-element type="bin" address="0x84">
+
+        </div>
+    </body>
+
+</html>
