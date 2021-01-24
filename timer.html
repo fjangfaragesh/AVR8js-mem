@@ -74,7 +74,8 @@ int main(void)
             <wokwi-led color="red"   pin="13" label="13"></wokwi-led>
             <span id="simulation-time"></span><br>
             <b>PORTB: </b><memout-element type="bin" address="0x25"></memout-element> <b>DDRB: </b><memout-element type="bin" address="0x24"></memout-element><br>
-            <b>TCNT1 H: </b><memout-element type="bin" address="0x85"></memout-element> <b>L: </b><memout-element type="bin" address="0x84">
+            <b>TCNT1: </b><memout-element type="bin" address="0x84" bytes="2" endian="little"></memout-element><br>
+            <b>TCNT1: </b><memout-element type="diagram" address="0x84" bytes="2" endian="little" bgcolor="white" color="blue" min="0" max="16000" width="500" height="200"></memout-element><br>
 
         </div>
     </body>

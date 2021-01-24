@@ -41,21 +41,22 @@ async function compileAndRun() {
     <body onload='try {new Function("(a = 0) => a")} catch(e) {alert("Your browser does not support ES6! Please update")}'>
         <h1>Test</h1>
         <textarea id="code" rows="30" cols="50">
+byte leds[] = {13, 12, 11, 10};
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
+  for (byte i = 0; i < sizeof(leds); i++) {
+    pinMode(leds[i], OUTPUT);
+  }
 }
 
+int i = 0;
 void loop() {
-   while (Serial.available() > 0 ) {
-     Serial.println("Hai!\n");
-     String str = Serial.readString();
-
-     if (str.equals("send")) {
-        Serial.println("identified");
-     } else {
-        Serial.println("unknown");
-     }
-   }
+  Serial.print("LED: ");
+  Serial.println(i);
+  digitalWrite(leds[i], HIGH);
+  delay(250);
+  digitalWrite(leds[i], LOW);
+  i = (i + 1) % sizeof(leds);
 }
         </textarea><br>
         <div id="leId">
@@ -70,8 +71,6 @@ void loop() {
             <b>PORTB: </b><memout-element type="bin" address="0x25"></memout-element> <b>DDRB: </b><memout-element type="bin" address="0x24"></memout-element><br>
             <b>PORTC: </b><memout-element type="bin" address="0x28"></memout-element> <b>DDRC: </b><memout-element type="bin" address="0x27"></memout-element><br>
             <b>PORTD: </b><memout-element type="bin" address="0x2B"></memout-element> <b>DDRD: </b><memout-element type="bin" address="0x2A"></memout-element><br>
-            <b>TCNT1 H: </b><memout-element type="bin" address="0x85"></memout-element> <b>L: </b><memout-element type="bin" address="0x84">
-
         </div>
     </body>
 
