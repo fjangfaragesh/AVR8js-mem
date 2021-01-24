@@ -73,9 +73,14 @@ int main(void)
             <input type="button" value="RUN" onclick="this.disabled=true; compileAndRun()"><br>
             <wokwi-led color="red"   pin="13" label="13"></wokwi-led>
             <span id="simulation-time"></span><br>
+<<<<<<< HEAD
             <b>PORTB: </b><memout-element type="bin" address="0x25"></memout-element> <b>DDRB: </b><memout-element type="bin" address="0x24"></memout-element><br>
             <b>TCNT1: </b><memout-element type="bin" address="0x84" bytes="2" endian="little"></memout-element><br>
             <b>TCNT1: </b><memout-element type="diagram" address="0x84" bytes="2" endian="little" bgcolor="white" color="blue" min="0" max="16000" width="500" height="200"></memout-element><br>
+=======
+            <b>PORTB: </b><memout-element type="bin" address="0x25"></memout-element> <b>DDRB: </b><memout-element type="bin" address="0x24"></memout-element> <b>PINB: </b><memout-element type="bin" address="0x23"></memout-element><br>
+            <b>TCNT1 H: </b><memout-element type="bin" address="0x85"></memout-element> <b>L: </b><memout-element type="bin" address="0x84">
+>>>>>>> b8eb356fd4a1feadc2c3c40af053cb3a8907d221
 
         </div>
     </body>
