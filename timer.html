@@ -2,6 +2,7 @@
     <head>
         <meta charset="utf-8"/>
         <script type="text/javascript" src="dist/index.js"></script>
+        <script type="text/javascript" src="customfunctions.js"></script>
         <script type="text/javascript">
 async function compileAndRun() {
     let e = await AVR8js.build(document.getElementById("code").value, []);
@@ -75,7 +76,31 @@ int main(void)
             <span id="simulation-time"></span><br>
             <b>PORTB: </b><memout-element type="bin" address="0x25"></memout-element> <b>DDRB: </b><memout-element type="bin" address="0x24"></memout-element> <b>PINB: </b><memout-element type="bin" address="0x23"></memout-element><br>
             <b>TCNT1: </b><memout-element type="bin" address="0x84" bytes="2" endian="little"></memout-element><br>
-            <b>TCNT1: </b><memout-element type="diagram" address="0x84" bytes="2" endian="little" color="blue" min="0" max="16000" width="100" height="100" interval="20000000"></memout-element><br>
+            
+            <b>TCNT1: </b>
+            <memout-element
+                type="diagram"
+                address="0x84"
+                bytes="2"
+                endian="little"
+                color="blue"
+                min="0"
+                max="16000"
+                width="400"
+                height="300"
+                interval="20000000"
+            ></memout-element><br>
+            <memout-element
+                type="diagram2"
+                outputs="[bytesToInt(data[0x84],data[0x85]), extractBit(data[0x25],5)*4000 + 16000]"
+                color="blue"
+                min="0"
+                max="20000"
+                width="400"
+                height="300"
+                interval="20000000"
+                title="LED13 und TCNT1"
+            ></memout-element><br>
         </div>
     </body>
 

@@ -33,6 +33,12 @@ class MemOutElement extends HTMLElement implements MemOut {
                 case "diagram":
                     this.setMemOutType(new MemOutTypeDiagram(this));
                     break;
+                case "diagram2":
+                    this.setMemOutType(new MemOutTypeDiagram2(this));
+                    break;
+                case "custom":
+                    this.setMemOutType(new MemOutTypeTextCustom(this));
+                    break;
                 default:
                     this.setMemOutType(new MemOutType(this));
             }
@@ -51,7 +57,7 @@ class MemOutElement extends HTMLElement implements MemOut {
         return this._address;
     }
 }
-MemOutElement.observedAttributesArray = ["type","address","bytes","endian","width","height","min","max","color","bgcolor","interval"];
+MemOutElement.observedAttributesArray = ["type","address","bytes","endian","width","height","min","max","color","bgcolor","interval","output","outputs","title"];
 
 
 class MemOutType {
@@ -141,7 +147,27 @@ class MemOutTypeText extends MemOutType {
     }
 }
 
-
+class MemOutTypeTextCustom extends MemOutType {
+    constructor(elm) {
+        super(elm);
+        this._valueStr = "";
+        this._outputFunction = function(data,currentCycle) {return ""};
+    }
+    showValue() {
+        this.elm.innerHTML = "";
+        this.elm.appendChild(document.createTextNode(this._valueStr));   
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name === "output") {
+            this._outputFunction = function(data,currentCycle) {return eval(newValue)};
+        }
+        this.showValue();
+    }
+    updateData(data: Uint8Array, currentCycle: Number) : void {
+        this._valueStr = this._outputFunction(data,currentCycle);
+        this.showValue();
+    }
+}
 
 /*
 
@@ -242,10 +268,10 @@ class MemOutTypeDiagram extends MemOutType {
 //        this._addresDiv = document.createElement("div");
 //        this.elm.appendChild(this._addresDiv);
         this._eChartsDiv = document.createElement("div");
-        this._eChartsDiv.style.width = "500px";
+        this._eChartsDiv.style.width = "750px";
         this._eChartsDiv.style.height = "500px";
         this.elm.appendChild(this._eChartsDiv);
-        this._width = 500;
+        this._width = 750;
         this._height = 500;
         this._data = [];
         this._min = 0;
@@ -292,6 +318,7 @@ class MemOutTypeDiagram extends MemOutType {
             xAxis: {},
             yAxis: {
                 type: 'value',
+                animation : false,
                 min: this._min,
                 max: this._max === "auto" ? Math.pow(2,this._bytes*8) : this._max,
                 splitLine: {
@@ -332,6 +359,7 @@ class MemOutTypeDiagram extends MemOutType {
         }
         if (name === "color") this._color = newValue;
 //        if (name === "bgcolor") this._bgcolor = newValue;
+        echarts.dispose(this._eChartsDiv);
         this._eChart = undefined; // forces eChartsInit()
         this.showValue();
     }
@@ -359,6 +387,126 @@ class MemOutTypeDiagram extends MemOutType {
     }
 }
 
+class MemOutTypeDiagram2 extends MemOutType {
+    constructor(elm) {
+        super(elm);
+        this.elm.innerHTML = "";
+        this._eChartsDiv = document.createElement("div");
+        this._eChartsDiv.style.width = "750px";
+        this._eChartsDiv.style.height = "500px";
+        this.elm.appendChild(this._eChartsDiv);
+        this._width = 750;
+        this._height = 500;
+        this._datas = [];
+        this._min = 0;
+        this._max = "auto";
+        this._color = "#000000";
+        this._outputsFunction = function() {return []};
+        this._eChart = undefined;
+        this._interval = 50000000;
+        this._title = "";
+    }
+    showValue() {
+        if (this._eChart === undefined) this._eChartsInit();
+        let oldestXValue = 0;
+        if (this._datas.length != 0) if (this._datas[0].length != 0) oldestXValue = this._datas[0][0][0];
+        let seriesArray = [];
+        for (let d of this._datas) {
+            seriesArray.push({
+                    name: 'value',
+                    type: 'line',
+                    showSymbol: false,
+                    hoverAnimation: false,
+                    data: d
+            });
+        }
+        this._eChart.setOption({
+            xAxis: {
+                    type: 'value',
+                    min: oldestXValue,
+                    max: oldestXValue + this._interval,
+                    animation : false,
+                    splitLine: {
+                        show: false
+                    }
+            },
+            series: seriesArray;
+        });
+    }
+    
+    _eChartsInit() {
+        this._eChart = echarts.init(this._eChartsDiv);
+        var option = {
+            color:this._color,
+            title: {
+                text: this._title
+            },
+            tooltip: {},
+            xAxis: {},
+            yAxis: {
+                type: 'value',
+                min: this._min === "auto" ? undefined : this._min,
+                max: this._max === "auto" ? undefined : this._max,
+                animation : false,
+                splitLine: {
+                    show: false
+                }
+            }
+        };
+        this._eChart.setOption(option);
+        
+    }
+    
+    
+    attributeChangedCallback(name, oldValue, newValue) {
+        echarts.dispose(this._eChartsDiv);
+        this._eChart = undefined; // forces eChartsInit()
+        if (name === "interval") this._interval = newValue*1;
+        if (name === "width") {
+            this._width = newValue*1;
+            this._eChartsDiv.style.width = newValue + "px";
+        }
+        if (name === "height") {
+            this._height = newValue*1;
+            this._eChartsDiv.style.height = newValue + "px";
+        }
+        if (name === "min") {
+            if (newValue === "auto") {
+                this._min = "auto";
+            } else {
+                this._min = newValue*1;
+            }        }
+        if (name === "max") {
+            if (newValue === "auto") {
+                this._max = "auto";
+            } else {
+                this._max = newValue*1;
+            }
+        }
+        if (name === "title") this._title = newValue;
+        if (name === "color") this._color = newValue;
+        if (name === "outputs") this._outputsFunction = function(data,currentCycle) {return eval(newValue)};
+        this.showValue();
+    }
+    updateData(data: Uint8Array, currentCycle: Number) : void {
+        for (let d of this._datas) while (true) {
+            if (d.length === 0) break;
+            if (d[0][0] + this._interval >= currentCycle) break;
+            d.splice(0,1);
+        }
+        let max = this._max;
+        if (max === "auto") max = Math.pow(2,this._bytes*8);
+        let min = this._min;
+        let outpts = this._outputsFunction(data,currentCycle);
+        if (!(outpts instanceof Array)) outpts = [outpts];
+        for (let i = 0; i < outpts.length; i++) {
+            if (this._datas[i] === undefined) this._datas[i] = [];
+            this._datas[i].push([currentCycle,outpts[i]]);
+        }
+       );
+        this.showValue();
+    }
+}
 
 
 customElements.define('memout-element', MemOutElement);
