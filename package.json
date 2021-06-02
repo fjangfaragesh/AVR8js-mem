@@ -19,7 +19,8 @@
   "dependencies": {
     "@webcomponents/custom-elements": "^1.4.3",
     "@wokwi/elements": "^0.27.2",
-    "avr8js": "^0.11.4"
+    "avr8js": "^0.11.4",
+    "echarts": "^5.1.1"
   },
   "browserslist": [
     "last 2 years"

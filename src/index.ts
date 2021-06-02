@@ -162,12 +162,12 @@ window.AVR8js = {
 
     const timeSpan = container.querySelector("#simulation-time")
     runner.execute(cpu => {
-    for (let m of MemOuts) m.updateData(cpu.data);
+    for (let m of MemOuts) m.updateData(cpu.data, cpu.cycles);
       const time = formatTime(cpu.cycles / MHZ);
       if(timeSpan)
         timeSpan.textContent = "Simulation time: " + time;
     },cyclesPerFrame,frameDelayMilliseconds);
 
-    return runner
+    return runner;
   }
 }
