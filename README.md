@@ -3,7 +3,9 @@
 AVR8js-mem ermöglicht es code auf einem simmulierten avr aus zu führen, die Reaktion von an diesen angeschlossenen Komponenten (zum Beispiel LEDs) zu visualisieren und den Inhalt von Registern bzw vom Speicher aus zu lesen und dar zu stellen.
 
 ## Nutzung
-[Beispiel HTML Datei](extern_template.html)
+[Beispiel HTML Datei (code)](extern_template.html)  
+[Beispiel HTML Datei (ausführen)](https://fjangfaragesh.github.io/AVR8js-mem/extern_template.html)
+
 
 Es wird `/dist/index.js` und [`/compileandrun.js`](compileandrun.js) benötigt.  
 Sinnvoll für Diagramme: [`customfunctions.js`](customfunctions.js) einbinden.
