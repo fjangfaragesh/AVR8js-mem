@@ -1,6 +1,12 @@
 import {MemOut} from "./memout.ts";
 import * as echarts from 'echarts';
+import AVR8_REGISTER from "./avr8register.js";
 
+AVR8_REGISTER["DUMMY"] = "DUMMY";
+
+function parseAddress(a) {
+    return isNaN(a*1) ? window.AVR8_REGISTER[a] : a*1;
+}
 
 class MemOutElement extends HTMLElement implements MemOut {
     static get observedAttributes() {
@@ -97,7 +103,8 @@ class MemOutTypeText extends MemOutType {
     attributeChangedCallback(name, oldValue, newValue) {
         if (name === "address") {
             this._addressStr = newValue;
-            this._address = newValue*1;
+            this._address = parseAddress(newValue);
+            console.log(newValue,"->",this._address);
         }
         if (name === "bytes") this._bytes = newValue*1;
         if (name === "endian") this._endian = newValue;
@@ -211,7 +218,7 @@ class MemOutTypeDiagram extends MemOutType {
     attributeChangedCallback(name, oldValue, newValue) {
         if (name === "address") {
             this._addressStr = newValue;
-            this._address = newValue*1;
+            this._address = parseAddress(newValue);
         }
         if (name === "bytes") this._bytes = newValue*1;
         if (name === "endian") this._endian = newValue;
@@ -334,7 +341,7 @@ class MemOutTypeDiagram extends MemOutType {
     attributeChangedCallback(name, oldValue, newValue) {
         if (name === "address") {
             this._addressStr = newValue;
-            this._address = newValue*1;
+            this._address = parseAddress(newValue);
         }
         if (name === "bytes") this._bytes = newValue*1;
         if (name === "interval") this._interval = newValue*1;
