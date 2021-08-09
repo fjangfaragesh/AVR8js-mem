@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Vorlage: Einbinden und nutzen von AVR8js-mem</title>
+        <script type="text/javascript" src="https://fjangfaragesh.github.io/AVR8js-mem/dist/index.js"></script>
+        <script type="text/javascript" src="https://fjangfaragesh.github.io/AVR8js-mem/customfunctions.js"></script>
+        <script type="text/javascript" src="https://fjangfaragesh.github.io/AVR8js-mem/compileandrun.js"></script>
+    </head>
+    <body>
+        <h1>So geht das:</h1>
+        <textarea id="code" rows="30" cols="50">
+#ifndef F_CPU
+#define F_CPU 16000000UL // 16 MHz clock speed
+#endif
+
+//16.000.000 Hz / 1024 = 15.625
+
+int main(void)
+{
+  DDRB |= (1 << PB5);  // Ausgabe LED festlegen
+  // Timer 1 Konfiguration
+  //         keine Pins verbunden
+  TCCR1A  = 0;
+  TCCR1B  = 0;
+  // Timerwert
+  TCNT1   = 0;
+  TCCR1B |= (1 << CS12) | (1 << CS10);  // 1024 als Prescale-Wert
+
+  while (1) //infinite loop
+  {
+     if (TCNT1>15625){
+        TCNT1 = 0;  
+        PINB = (1 << PB5); // LED ein und aus
+     }
+  }
+}
+        </textarea>
+        <div id="divWithAllComponents">
+            <!-- compileAndRun(codeString, divId, cyclesPerFrame, interFrameDelay)
+                cyclesPerFrame:Wie viele CPU cyclen durchgeführt werden, bevor die Komponenten der Webseite aktuallisiert werden
+                interFrameDelay: zeit in millisekunden zwischen zwei frames (zum langsamer stellen der Simmulation auf zahl>0 stellen)
+            --> 
+            <input type="button" value="RUN" onclick="this.disabled=true; compileAndRun(document.getElementById('code').value,'divWithAllComponents',100000,0)"><br>
+
+            <!-- WICHTIG: simmulationszeit span/div: (id="simulation-time") -->
+            <span id="simulation-time"></span><br>
+
+            <!-- wokwi web komponenten -->
+            <wokwi-led color="red" pin="13" label="13"></wokwi-led><br>
+
+            <!-- memout web komponenten -->
+            <!-- Textausgaben -->
+            <b>PORTB: </b> <memout-element type="bin" address="0x25"></memout-element>
+            <b>DDRB: </b> <memout-element type="bin" address="0x24"></memout-element>
+            <b>PINB: </b> <memout-element type="bin" address="0x23"></memout-element><br>
+            <b>TCNT1: </b> <memout-element type="bin" address="0x84" bytes="2" endian="little"></memout-element><br>
+
+            <!-- Diagramm -->
+            <memout-element
+                type="diagram2"
+                outputs="[bytesToInt(data[0x84],data[0x85]), extractBit(data[0x25],5)*4000 + 16000]"
+                color="blue"
+                min="0"
+                max="20000"
+                width="400"
+                height="300"
+                interval="20000000"
+                title="LED13 und TCNT1"
+                colors='["red","blue"]'
+                labels='["TCNT1","LED13"]'
+            ></memout-element><br>
+        </div>
+    </body>
+</html>

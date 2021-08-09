@@ -57,7 +57,7 @@ class MemOutElement extends HTMLElement implements MemOut {
         return this._address;
     }
 }
-MemOutElement.observedAttributesArray = ["type","address","bytes","endian","width","height","min","max","color","bgcolor","interval","output","outputs","title"];
+MemOutElement.observedAttributesArray = ["type","address","bytes","endian","width","height","min","max","color","colors","bgcolor","interval","output","outputs","title","labels"];
 
 
 class MemOutType {
@@ -401,6 +401,8 @@ class MemOutTypeDiagram2 extends MemOutType {
         this._min = 0;
         this._max = "auto";
         this._color = "#000000";
+        this._colors = ["blue"];
+        this._labels = [];
         this._outputsFunction = function() {return []};
         this._eChart = undefined;
         this._interval = 50000000;
@@ -411,13 +413,20 @@ class MemOutTypeDiagram2 extends MemOutType {
         let oldestXValue = 0;
         if (this._datas.length != 0) if (this._datas[0].length != 0) oldestXValue = this._datas[0][0][0];
         let seriesArray = [];
-        for (let d of this._datas) {
+        for (let i = 0; i < this._datas.length;i++) {
+            let d = this._datas[i];
             seriesArray.push({
-                    name: 'value',
+                    name: this._labels[i] ?? "value",
                     type: 'line',
                     showSymbol: false,
                     hoverAnimation: false,
-                    data: d
+                    data: d,
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    lineStyle: {
+                        color:this._colors[i%this._colors.length]
+                    }
             });
         }
         this._eChart.setOption({
@@ -437,12 +446,13 @@ class MemOutTypeDiagram2 extends MemOutType {
     _eChartsInit() {
         this._eChart = echarts.init(this._eChartsDiv);
         var option = {
-            color:this._color,
             title: {
                 text: this._title
             },
-            tooltip: {},
-            xAxis: {},
+            tooltip: {
+                order: 'valueDesc',
+                trigger: 'axis'
+            },            xAxis: {},
             yAxis: {
                 type: 'value',
                 min: this._min === "auto" ? undefined : this._min,
@@ -450,7 +460,7 @@ class MemOutTypeDiagram2 extends MemOutType {
                 animation : false,
                 splitLine: {
                     show: false
-                }
+                },
             }
         };
         this._eChart.setOption(option);
@@ -484,7 +494,30 @@ class MemOutTypeDiagram2 extends MemOutType {
             }
         }
         if (name === "title") this._title = newValue;
-        if (name === "color") this._color = newValue;
+        if (name === "colors") {
+            try {
+                this._colors = JSON.parse(newValue);
+                if (!(this._colors instanceof Array)) {
+                    this._colors = [this._colors];
+                } else if (this._colors.length == 0) {
+                    this._colors = ["blue"];
+                }
+            } catch (e) {
+                this._colors = [newValue];
+            }
+        }
+        if (name === "labels") {
+            try {
+                this._labels = JSON.parse(newValue);
+                if (!(this._labels instanceof Array)) {
+                    this._labels = [this._labels];
+                } else if (this._labels.length == 0) {
+                    this._labels = ["blue"];
+                }
+            } catch (e) {
+                this._labels = [newValue];
+            }
+        }
         if (name === "outputs") this._outputsFunction = function(data,currentCycle) {return eval(newValue)};
         this.showValue();
     }
@@ -501,7 +534,7 @@ class MemOutTypeDiagram2 extends MemOutType {
         if (!(outpts instanceof Array)) outpts = [outpts];
         for (let i = 0; i < outpts.length; i++) {
             if (this._datas[i] === undefined) this._datas[i] = [];
-            this._datas[i].push([currentCycle,outpts[i]]);
+            this._datas[i].push([currentCycle,outpts[i]])
         }
        );
         this.showValue();

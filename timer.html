@@ -3,41 +3,7 @@
         <meta charset="utf-8"/>
         <script type="text/javascript" src="dist/index.js"></script>
         <script type="text/javascript" src="customfunctions.js"></script>
-        <script type="text/javascript">
-async function compileAndRun() {
-    let e = await AVR8js.build(document.getElementById("code").value, []);
-    console.log(e);
-    if (e.stderr) {
-        let msgs = []
-
-        for(let i = 0; i<name.length; i++) {
-            msgs.push([])
-        }
-
-        let iter = e.stderr.matchAll(/(\w+\.\w+):(\d+):(\d+): ([^:]+):(.+)/g)
-
-        for(let err=iter.next(); !err.done; err=iter.next()) {
-            msgs[name.findIndex((e) => e==err.value[1])].push({
-            row :    parseInt(err.value[2]) - 1,
-            column : parseInt(err.value[3]),
-            text :   err.value[5],
-            type :   err.value[4]
-            })
-        }
-        throw new Error(e.stderr + " " + msgs);
-    } else {
-        console.debug(e.stdout);
-        if (e.hex) {
-            let runner = AVR8js.execute(e.hex, console.log, "leId", undefined, document.getElementById("cyclesPerFrame").value*1, document.getElementById("frameDelayMilliseconds").value*1);
-        } else {
-            throw new Error("no hex!");
-        }
-    }
-}
-        
-        
-        
-        </script>
+        <script type="text/javascript" src="compileandrun.js"></script>
     </head>
     <body onload='try {new Function("(a = 0) => a")} catch(e) {alert("Your browser does not support ES6! Please update")}'>
         <h1>Timer</h1>
@@ -68,12 +34,15 @@ int main(void)
   }
 }
         </textarea><br>
-        <div id="leId">
+        <div id="divId">
             cyclesPerFrame:<input type="text" id="cyclesPerFrame" value="100000"><br>
             interFrameDelayMilliseconds:<input type="text" id="frameDelayMilliseconds" value="0"><br>
-            <input type="button" value="RUN" onclick="this.disabled=true; compileAndRun()"><br>
+            <input type="button" value="RUN" onclick="this.disabled=true; compileAndRun(document.getElementById('code').value,'divId',document.getElementById('cyclesPerFrame').value*1, document.getElementById('frameDelayMilliseconds').value*1)"><br>
+            
             <wokwi-led color="red"   pin="13" label="13"></wokwi-led>
+            
             <span id="simulation-time"></span><br>
+            
             <b>PORTB: </b><memout-element type="bin" address="0x25"></memout-element> <b>DDRB: </b><memout-element type="bin" address="0x24"></memout-element> <b>PINB: </b><memout-element type="bin" address="0x23"></memout-element><br>
             <b>TCNT1: </b><memout-element type="bin" address="0x84" bytes="2" endian="little"></memout-element><br>
             
@@ -100,6 +69,8 @@ int main(void)
                 height="300"
                 interval="20000000"
                 title="LED13 und TCNT1"
+                colors='["red","blue"]'
+                labels='["TCNT1","LED13"]'
             ></memout-element><br>
         </div>
     </body>
