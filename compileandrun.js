@@ -1,4 +1,4 @@
-async function compileAndRun(codeString,divId, cyclesPerFrame,frameDelayMilliseconds) {
+async function compileAndRun(codeString,divId, cyclesPerFrame,frameDelayMilliseconds, maxNumberOfCycles) {
     let e = await AVR8js.build(codeString , []);
     console.log(e);
     if (e.stderr) {
@@ -22,7 +22,7 @@ async function compileAndRun(codeString,divId, cyclesPerFrame,frameDelayMillisec
     } else {
         console.debug(e.stdout);
         if (e.hex) {
-            let runner = AVR8js.execute(e.hex, console.log, divId, undefined, cyclesPerFrame*1, frameDelayMilliseconds*1);
+            let runner = AVR8js.execute(e.hex, console.log, divId, undefined, cyclesPerFrame*1, frameDelayMilliseconds*1, maxNumberOfCycles ?? Infinity);
         } else {
             throw new Error("no hex!");
         }

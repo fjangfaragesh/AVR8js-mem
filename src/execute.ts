@@ -63,27 +63,31 @@ export class AVRRunner {
     this.cpu.readHooks[usart0Config.UDR] = () => this.serialBuffer.shift() || 0;
   }
 
-  async execute(callback: (cpu: CPU) => void, cyclesPerFrame: number, frameDelayMilliseconds: number) {
+  async execute(callback: (cpu: CPU) => void, cyclesPerFrame: number, frameDelayMilliseconds: number, maxNumberOfCycles: any) {
     this.stopped = false;
     while (true) {
         for (let i = 0; i < cyclesPerFrame; i++) {
-        avrInstruction(this.cpu);
-        this.timer0.tick();
-        this.timer1.tick();
-        this.timer2.tick();
-        this.usart.tick();
+          avrInstruction(this.cpu);
+          this.timer0.tick();
+          this.timer1.tick();
+          this.timer2.tick();
+          this.usart.tick();
 
-        const ucsra = this.cpu.data[usart0Config.UCSRA];
-        if (this.cpu.interruptsEnabled && ucsra & 0x20 && this.serialBuffer.length > 0) {
-            avrInterrupt(this.cpu, usart0Config.rxCompleteInterrupt);
-        }
+          const ucsra = this.cpu.data[usart0Config.UCSRA];
+          if (this.cpu.interruptsEnabled && ucsra & 0x20 && this.serialBuffer.length > 0) {
+              avrInterrupt(this.cpu, usart0Config.rxCompleteInterrupt);
+          }
+          if (this.cpu.cycles >= maxNumberOfCycles) {
+            this.stop();
+            break;
+          }
+      }
+      callback(this.cpu);
+      await new Promise((resolve) => setTimeout(resolve, frameDelayMilliseconds));
+      if (this.stopped) {
+          break;
+      }
     }
-    callback(this.cpu);
-    await new Promise((resolve) => setTimeout(resolve, frameDelayMilliseconds));
-    if (this.stopped) {
-        break;
-    }
-  }
 
   serial(input:string) {
     for (var i = 0; i < input.length; i++){

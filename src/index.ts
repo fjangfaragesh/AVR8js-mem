@@ -76,7 +76,7 @@ window.AVR8js = {
     return (await resp.json());
   },
 
-  execute: function (hex:string, log:any, id:string, MHZ: any, cyclesPerFrame: any, frameDelayMilliseconds: any) {
+  execute: function (hex:string, log:any, id:string, MHZ: any, cyclesPerFrame: any, frameDelayMilliseconds: any, maxNumberOfCycles: any) {
     const PORTS:Array<PORT> = ["B", "C", "D"]
 
     const container = document.getElementById(id) || document
@@ -166,7 +166,7 @@ window.AVR8js = {
       const time = formatTime(cpu.cycles / MHZ);
       if(timeSpan)
         timeSpan.textContent = "Simulation time: " + time;
-    },cyclesPerFrame,frameDelayMilliseconds);
+    },cyclesPerFrame,frameDelayMilliseconds,maxNumberOfCycles);
 
     return runner;
   }
