@@ -13,9 +13,9 @@ script: https://fjangfaragesh.github.io/AVR8js-mem/compileandrun.js
 
 @AVR8jsMem.sketch
 <script>
-	let code = `@0`;
-	console.log(code,`@1`, isNaN(`@2`) ? 1000000 : `@2`*1, isNaN(`@3`) ? 0 : `@3`*1);
-    compileAndRun(code,`@1`, isNaN(`@2`) ? 1000000 : `@2`*1, isNaN(`@3`) ? 0 : `@3`*1);
+	let code = `@input`;
+	console.log(code,`@0`, isNaN(`@1`) ? 1000000 : `@1`*1, isNaN(`@2`) ? 0 : `@2`*1);
+    compileAndRun(code,`@0`, isNaN(`@1`) ? 1000000 : `@1`*1, isNaN(`@2`) ? 0 : `@2`*1);
 	"LALALALALA???";
 </script>
 @end
