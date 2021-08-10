@@ -3,7 +3,7 @@ author:   Fabian Bär
 
 email:    Fabian.Baer@student.tu-freiberg.de
 
-version:  0.0.0
+version:  0.0.1
 
 comment:  Kein Kommentar!
 
@@ -36,7 +36,7 @@ include: https://fjangfaragesh.github.io/AVR8js-mem/INCLUDE.md
         height="500"
     ></memout-element>
 </div>
-<lia-keep>
+</lia-keep>
 
 ``` cpp
 byte leds[] = {13, 12, 11, 10};
