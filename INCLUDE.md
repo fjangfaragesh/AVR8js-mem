@@ -17,6 +17,7 @@ script: https://fjangfaragesh.github.io/AVR8js-mem/compileandrun.js
 		let code = `@input`;
 		console.log("compiling...")
 	    try {
+	    	console.log("compiling...");
 	    	await compileAndRun(code,`@0`, isNaN(`@1`) ? 1000000 : `@1`*1, isNaN(`@2`) ? 0 : `@2`*1);
 	    	console.log("running...");
 	    } catch (e) {
