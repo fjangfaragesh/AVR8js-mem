@@ -8,6 +8,10 @@ version:  0.0.1
 comment:  Kein Kommentar!
 
 include: https://fjangfaragesh.github.io/AVR8js-mem/INCLUDE.md
+script: https://fjangfaragesh.github.io/AVR8js-mem/dist/index.js
+script: https://fjangfaragesh.github.io/AVR8js-mem/customfunctions.js
+script: https://fjangfaragesh.github.io/AVR8js-mem/compileandrun.js
+
 
 @end
 
@@ -57,4 +61,4 @@ void loop() {
   i = (i + 1) % sizeof(leds);
 }
 ```
-@AVR8js.sketch(example_div_id, 123456, 0)
+@AVR8jsMem.sketch(example_div_id, 123456, 0)
