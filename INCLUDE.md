@@ -11,7 +11,9 @@ script: https://fjangfaragesh.github.io/AVR8js-mem/dist/index.js
 script: https://fjangfaragesh.github.io/AVR8js-mem/customfunctions.js
 script: https://fjangfaragesh.github.io/AVR8js-mem/compileandrun.js
 
-@AVR8jsMem.sketch
+@AVR8jsMem.sketch: @AVR8jsMem.sketchMultiline(@0,@1,@2)
+
+@AVR8jsMem.sketchMultiline
 
 <script type="text/javascript">
     alert("dad makro geht hoffentlich");
