@@ -433,6 +433,9 @@ class MemOutTypeDiagram2 extends MemOutType {
                     },
                     lineStyle: {
                         color:this._colors[i%this._colors.length]
+                    },
+                    itemStyle: {
+                        color:this._colors[i%this._colors.length]
                     }
             });
         }
