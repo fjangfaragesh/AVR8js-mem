@@ -21,10 +21,24 @@ async function compileAndRun(codeString,divId, cyclesPerFrame,frameDelayMillisec
         throw new Error(e.stderr + " " + msgs);
     } else {
         console.debug(e.stdout);
-        if (e.hex) {
-            let runner = AVR8js.execute(e.hex, console.log, divId, undefined, cyclesPerFrame*1, frameDelayMilliseconds*1, maxNumberOfCycles ?? Infinity);
-        } else {
-            throw new Error("no hex!");
-        }
+        await new Promise(function(res,rej) {
+            if (e.hex) {
+                let runner = AVR8js.execute(
+                    e.hex, 
+                    console.log,
+                    divId,
+                    undefined,
+                    cyclesPerFrame*1,
+                    frameDelayMilliseconds*1,
+                    maxNumberOfCycles ?? Infinity,
+                    function() {
+                        console.log("simmulation stoped");
+                        res();
+                    }
+                );
+            } else {
+                throw new Error("no hex!");
+            }
+        });
     }
 }
