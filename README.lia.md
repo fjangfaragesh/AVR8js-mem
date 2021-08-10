@@ -3,7 +3,7 @@ author:   Fabian Bär
 
 email:    Fabian.Baer@student.tu-freiberg.de
 
-version:  0.0.2
+version:  0.0.3
 
 comment:  Kein Kommentar!
 
@@ -55,4 +55,4 @@ void loop() {
   i = (i + 1) % sizeof(leds);
 }
 ```
-@AVR8jsMem.sketch
+@AVR8jsMem.sketch(example_div_id,121314,1)
