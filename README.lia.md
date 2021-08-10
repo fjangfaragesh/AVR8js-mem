@@ -56,5 +56,5 @@ void loop() {
   i = (i + 1) % sizeof(leds);
 }
 ```
-@AVR8jsMem.sketch(example_div_id,1213141,1,16000000)
+@AVR8jsMem.sketch(example_div_id,100000,1,16000000)
 

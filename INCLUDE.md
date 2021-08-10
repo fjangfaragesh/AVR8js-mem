@@ -18,8 +18,8 @@ script: https://fjangfaragesh.github.io/AVR8js-mem/compileandrun.js
 		console.log("compiling...")
 	    try {
 	    	console.log("compiling...");
-	    	await compileAndRun(code,`@0`, isNaN(`@1`) ? 1000000 : `@1`*1, isNaN(`@2`) ? 0 : `@2`*1,isNaN(`@3`) ? Infinity : `@3`*1);
-	    	console.log("running...");
+	    	await compileAndRun(code,`@0`, isNaN(`@1`) ? 1000000 : `@1`*1, isNaN(`@2`) ? 0 : `@2`*1, isNaN(`@3`) ? Infinity : `@3`*1);
+	    	console.log("running " + (isNaN(`@3`) ? Infinity : `@3`*1) + " cycles...");
 	    } catch (e) {
 			console.error(e);
 			send.stop();
