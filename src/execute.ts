@@ -78,6 +78,7 @@ export class AVRRunner {
               avrInterrupt(this.cpu, usart0Config.rxCompleteInterrupt);
           }
           if (this.cpu.cycles >= maxNumberOfCycles) {
+            console.log("this:",this,this.stop);
             this.stop();
             break;
           }

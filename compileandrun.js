@@ -1,4 +1,5 @@
 async function compileAndRun(codeString,divId, cyclesPerFrame,frameDelayMilliseconds, maxNumberOfCycles) {
+    console.log("compiling...");
     let e = await AVR8js.build(codeString , []);
     console.log(e);
     if (e.stderr) {
