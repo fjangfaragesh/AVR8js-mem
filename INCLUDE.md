@@ -7,6 +7,10 @@ version:  0.0.0
 
 comment:  Kein Kommentar!
 
+script: https://fjangfaragesh.github.io/AVR8js-mem/dist/index.js
+script: https://fjangfaragesh.github.io/AVR8js-mem/customfunctions.js
+script: https://fjangfaragesh.github.io/AVR8js-mem/compileandrun.js
+
 @AVR8jsMem.sketch
 
 <script type="text/javascript">

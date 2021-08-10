@@ -3,15 +3,11 @@ author:   Fabian Bär
 
 email:    Fabian.Baer@student.tu-freiberg.de
 
-version:  0.0.1
+version:  0.0.2
 
 comment:  Kein Kommentar!
 
-include: https://fjangfaragesh.github.io/AVR8js-mem/INCLUDE.md
-script: https://fjangfaragesh.github.io/AVR8js-mem/dist/index.js
-script: https://fjangfaragesh.github.io/AVR8js-mem/customfunctions.js
-script: https://fjangfaragesh.github.io/AVR8js-mem/compileandrun.js
-
+import: https://fjangfaragesh.github.io/AVR8js-mem/INCLUDE.md
 
 @end
 
