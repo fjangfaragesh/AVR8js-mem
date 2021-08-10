@@ -9,8 +9,6 @@ comment:  Kein Kommentar!
 
 import: https://fjangfaragesh.github.io/AVR8js-mem/INCLUDE.md
 
-@end
-
 -->
 
 # Lia Include Example
