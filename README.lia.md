@@ -19,14 +19,14 @@ import: https://fjangfaragesh.github.io/AVR8js-mem/INCLUDE.md
     <wokwi-led color="blue"  pin="11" label="11"></wokwi-led>
     <wokwi-led color="yellow"  pin="10" label="10"></wokwi-led>
     <span id="simulation-time"></span><br>
-    <b>PORTB: </b><memout-element type="bin" address="0x25"></memout-element> <b>DDRB: </b><memout-element type="bin" address="0x24"></memout-element><br>
-    <b>PORTC: </b><memout-element type="bin" address="0x28"></memout-element> <b>DDRC: </b><memout-element type="bin" address="0x27"></memout-element><br>
-    <b>PORTD: </b><memout-element type="bin" address="0x2B"></memout-element> <b>DDRD: </b><memout-element type="bin" address="0x2A"></memout-element><br>     
-    <b>led 13: </b><memout-element type="custom" output="extractBit(data[0x25],5)"></memout-element><br>
+    <b>PORTB: </b><memout-element type="bin" address="PORTB"></memout-element> <b>DDRB: </b><memout-element type="bin" address="DDRB"></memout-element><br>
+    <b>PORTC: </b><memout-element type="bin" address="PORTC"></memout-element> <b>DDRC: </b><memout-element type="bin" address="DDRC"></memout-element><br>
+    <b>PORTD: </b><memout-element type="bin" address="PORTD"></memout-element> <b>DDRD: </b><memout-element type="bin" address="DDRD"></memout-element><br>     
+    <b>led 13: </b><memout-element type="custom" output="extractBit(data[AVR8_REGISTER.PORTB],5)"></memout-element><br>
 
 <memout-element
         type="diagram2"
-        outputs="[ extractBit(data[0x25],5), extractBit(data[0x25],4)+1.5, extractBit(data[0x25],3)+3, extractBit(data[0x25],2)+4.5 ]"
+        outputs="[ extractBit(data[AVR8_REGISTER.PORTB],5), extractBit(data[AVR8_REGISTER.PORTB],4)+1.5, extractBit(data[AVR8_REGISTER.PORTB],3)+3, extractBit(data[0x25],2)+4.5 ]"
         colors='["red","green","blue","yellow"]'
         labels='["red LED","green LED","blue LED","yellow LED"]'
         interval="20000000"
