@@ -15,10 +15,9 @@ script: https://fjangfaragesh.github.io/AVR8js-mem/compileandrun.js
 
 @AVR8jsMem.sketchMultiline
 <script>
-    alert("dad makro geht hoffentlich");
-    console.log(`@0`,`@1`, isNaN(`@2`) ? 1000000 : `@2`*1, isNaN(`@3`) ? 0 : `@3`*1);
+//  console.log(`@0`,`@1`, isNaN(`@2`) ? 1000000 : `@2`*1, isNaN(`@3`) ? 0 : `@3`*1);
     compileAndRun(`@0`,`@1`, isNaN(`@2`) ? 1000000 : `@2`*1, isNaN(`@3`) ? 0 : `@3`*1);
-	"LIA: wait"
+	"LALALALALA???"
 </script>
 @end
 
