@@ -10,14 +10,14 @@ async function compileAndRun(codeString,divId, cyclesPerFrame,frameDelayMillisec
 
         let iter = e.stderr.matchAll(/(\w+\.\w+):(\d+):(\d+): ([^:]+):(.+)/g)
 
-        for(let err=iter.next(); !err.done; err=iter.next()) {
+        /*for(let err=iter.next(); !err.done; err=iter.next()) {
             msgs[name.findIndex((e) => e==err.value[1])].push({
             row :    parseInt(err.value[2]) - 1,
             column : parseInt(err.value[3]),
             text :   err.value[5],
             type :   err.value[4]
             })
-        }
+        }*/
         throw new Error(e.stderr + " " + msgs);
     } else {
         console.debug(e.stdout);
