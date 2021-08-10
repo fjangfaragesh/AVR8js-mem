@@ -3,7 +3,7 @@ author:   Fabian Bär
 
 email:    Fabian.Baer@student.tu-freiberg.de
 
-version:  0.0.0
+version:  0.0.1
 
 comment:  Kein Kommentar!
 
@@ -15,8 +15,8 @@ script: https://fjangfaragesh.github.io/AVR8js-mem/compileandrun.js
 
 <script type="text/javascript">
     alert("dad makro geht hoffentlich");
-    console.log(`@input`,`@1`, isNaN(`@2`) ? 1000000 : `@2`*1, isNaN(`@3`) ? 1000000 : `@3`*1);
-    compileAndRun(`@input`,`@1`, isNaN(`@2`) ? 1000000 : `@2`*1, isNaN(`@3`) ? 1000000 : `@3`*1);
+    console.log(`@input`,`@0`, isNaN(`@1`) ? 1000000 : `@1`*1, isNaN(`@3`) ? 1000000 : `@2`*1);
+    compileAndRun(`@input`,`@0`, isNaN(`@1`) ? 1000000 : `@1`*1, isNaN(`@3`) ? 1000000 : `@2`*1);
 </script>
 
 @end

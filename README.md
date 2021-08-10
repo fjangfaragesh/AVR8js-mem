@@ -58,7 +58,7 @@ Attribute `interval`,`width`,`height`,`min`,`max` analog zu `type="diagram"`
 Weitere Attribute:  
 `outputs`: JavascripCode. Gibt Array mit werten der einzelnen Datenreihen Zurück.  Beispiel: `outputs="[data[0x11],data[0x42],data[0x99]"`  
 `colors`: Farben der Datenreihen. Beispiel: `colors='["red","green","#8800ff"]'` (erste Reihe rot, zweite grün, dritte lila)  
-`labels`: Namen der Datenreihen. Beispiel: `colors='["data bei 0x11","data bei 0x42","data bei 0x99"]'  
+`labels`: Namen der Datenreihen. Beispiel: `colors='["data bei 0x11","data bei 0x42","data bei 0x99"]'` 
 
 ### Simmulation starten
 Mit dem ausführen von `compileAndRun(codeString,divId, cyclesPerFrame,frameDelayMilliseconds)` wird die Simmulation gestartet.  
