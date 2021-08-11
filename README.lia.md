@@ -276,8 +276,8 @@ int main(void){
   TCCR1A |= (1 << COM1A0);  //Set Timer Register
   TCCR1B |= (1 << CS12) | (1 << CS10) | (1 << WGM12);
   OCR1A = 0;
-  int timer = 0;
-  int dummy = 16;
+  int timer = 16;
+  int dummy = 0;
   while(1) {
    while(timer < 255){ //Fade from low to high
     timer++;
