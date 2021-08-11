@@ -91,7 +91,7 @@ export class AVRRunner {
           break;
       }
     }
-
+  }
   serial(input:string) {
     for (var i = 0; i < input.length; i++){
       this.serialBuffer.push(input.charCodeAt(i));
