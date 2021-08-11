@@ -23,7 +23,6 @@ import: https://fjangfaragesh.github.io/AVR8js-mem/INCLUDE.md
     <div id="example_div_id">
         <span id="simulation-time"></span><br>
         <wokwi-led color="red" pin="13" label="13"></wokwi-led><br>
-        <b>Z: </b><memout-element type="bin" address="Z"></memout-element><br>
         <b>PORTB: </b><memout-element type="bin" address="PORTB"></memout-element> <b>DDRB: </b><memout-element type="bin" address="DDRB"></memout-element><br>
     </div>
 </lia-keep>
