@@ -16,6 +16,7 @@ script: https://fjangfaragesh.github.io/AVR8js-mem/compileandrun.js
 	async function sketch() {
 		let code = `@input`;
 	    try {
+            send.lia("LIA: terminal");
 	    	await compileAndRun(code,`@0`, isNaN(`@1`) ? 1000000 : `@1`*1, isNaN(`@2`) ? 0 : `@2`*1, isNaN(`@3`) ? Infinity : `@3`*1);
 			send.lia("LIA: stop");
 	    } catch (e) {
