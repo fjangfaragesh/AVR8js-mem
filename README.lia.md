@@ -14,8 +14,34 @@ import: https://fjangfaragesh.github.io/AVR8js-mem/INCLUDE.md
 # Lia Include Example
 
 ## Beispiel 1
+
+<span id="simulation-time"></span><br>
+<wokwi-led color="red" pin="13" label="13"></wokwi-led><br>
+<b>PORTB: </b><memout-element type="bin" address="PORTB"></memout-element> <b>DDRB: </b><memout-element type="bin" address="DDRB"></memout-element><br>
+
+``` cpp
+// preprocessor definition
+#define F_CPU 16000000UL
+
+#include <avr/io.h>
+#include <util/delay.h>
+
+int main (void) {
+   DDRB |= (1 << PB5);
+   while(1) {
+       // PINB = (1 << PB5);   // Dieses Feature ist im Simulator
+       PORTB ^= ( 1 << PB5 );
+       _delay_ms(1000);
+   }
+   return 0;
+}
+```
+@AVR8jsMem.sketch(example_div_id,100000,1)
+
+
+## Beispiel 2
 <lia-keep>
-<div id="example_div_id">
+<div id="example2_div_id">
     <wokwi-led color="red"   pin="13" label="13"></wokwi-led>
     <wokwi-led color="green" pin="12" label="12"></wokwi-led>
     <wokwi-led color="blue"  pin="11" label="11"></wokwi-led>
@@ -58,7 +84,7 @@ void loop() {
   i = (i + 1) % sizeof(leds);
 }
 ```
-@AVR8jsMem.sketch(example_div_id,100000,1,64000000)
+@AVR8jsMem.sketch(example2_div_id,100000,1,64000000)
 
 
 
@@ -74,10 +100,10 @@ void loop() {
 
 
 
-## Beispiel 2
+## Beispiel 3
 
 <lia-keep>
-<div id="example2_div_id">
+<div id="example3_div_id">
     <span id="simulation-time"></span><br>
             <wokwi-led color="green" pin="9" port="B" label="B1"></wokwi-led><br>
             <!-- memout web komponenten -->
@@ -131,4 +157,4 @@ int main(void){
    }
 }
 ```
-@AVR8jsMem.sketch(example2_div_id,10000,1)
+@AVR8jsMem.sketch(example3_div_id,10000,1)
