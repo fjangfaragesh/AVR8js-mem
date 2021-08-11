@@ -25,6 +25,7 @@ async function compileAndRun(codeString,divId, cyclesPerFrame,frameDelayMillisec
         throw new Error(e.stderr + " " + msgs);
     } else {
         console.debug(e.stdout);
+        serialOutputHanlder("ready!");
         await new Promise(function(res,rej) {
             if (e.hex) {
                 let runner = AVR8js.execute(
