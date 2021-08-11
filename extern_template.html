@@ -40,7 +40,7 @@ int main(void){
                 cyclesPerFrame:Wie viele CPU cyclen durchgeführt werden, bevor die Komponenten der Webseite aktuallisiert werden
                 interFrameDelay: zeit in millisekunden zwischen zwei frames (zum langsamer stellen der Simmulation auf zahl>0 stellen)
             --> 
-            <input type="button" value="RUN" id="runbutton" onclick="this.disabled=true; compileAndRun(document.getElementById('code').value,'divWithAllComponents',10000,1, undefined, (f)=>{document.getElementById('stopbutton').onclick = f; document.getElementById('stopbutton').disabled = false})"><br>
+            <input type="button" value="RUN" id="runbutton" onclick="this.disabled=true; compileAndRun(document.getElementById('code').value,'divWithAllComponents',10000,1, undefined, (f)=>{document.getElementById('stopbutton').onclick = f; document.getElementById('runbutton').disabled = false})"><br>
             <input type="button" id="stopbutton" value="STOP">
             <!-- WICHTIG: simmulationszeit span/div: (id="simulation-time") -->
             <span id="simulation-time"></span><br>
