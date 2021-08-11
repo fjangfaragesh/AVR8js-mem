@@ -61,8 +61,10 @@ Weitere Attribute:
 `labels`: Namen der Datenreihen. Beispiel: `colors='["data bei 0x11","data bei 0x42","data bei 0x99"]'` 
 
 ### Simmulation starten
-Mit dem ausführen von `compileAndRun(codeString,divId, cyclesPerFrame,frameDelayMilliseconds)` wird die Simmulation gestartet.  
+Mit dem ausführen von `compileAndRun(codeString,divId, cyclesPerFrame,frameDelayMilliseconds, numberOfCycles, stopFunctionCallback)` wird die Simmulation gestartet.
 - `codeString`: der auszuführende Code  
 - `divId`: id des div elements, in dem sich die wokwi web komponenten befinden  
 - `cyclesPerFrame`: Anzahl der CPU Zyklen, die in einem animations Frame ausgeführt werden. Nach diesen werden die Webkomponenten aktuallisiert und der nächste Frame beginnt (empfohlen: 100000)  
 - `frameDelayMilliseconds`: Zeit in Millisekunden zwischen zwei Frames. Zum Verlangsamen der Simmulation diese erhöhen. Sonst 0 lassen.  
+- `numberOfCycles`: Anzahl der CPU Zyklen, die simmuliert werden sollen. `undefined` oder `Infinity`: Simmulation hört nie auf
+- `stopFunctionCallback`: function(f), diese funktion wird von compileAndRun ausgeführt, wenn die Simmulation gestartet ist. Als parameter wird eine Funktion übergeben, mit der die Simmulation vorzeitig beendet werden kann.
