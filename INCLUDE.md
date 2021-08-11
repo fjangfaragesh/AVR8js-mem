@@ -14,11 +14,11 @@ script: https://fjangfaragesh.github.io/AVR8js-mem/compileandrun.js
 @AVR8jsMem.sketch
 <script>
 	async function sketch() {
+        console.log("RUN");
 		let code = `@input`;
-		let stopFcnctionCallback = function(f) {
+		let stopFunctionCallback = function(f) {
             send.handle("stop",f);
 		}
-
 	    try {
             send.lia("LIA: terminal");
 	    	await compileAndRun(code,`@0`, isNaN(`@1`) ? 1000000 : `@1`*1, isNaN(`@2`) ? 0 : `@2`*1, isNaN(`@3`) ? Infinity : `@3`*1, stopFunctionCallback);
@@ -28,7 +28,7 @@ script: https://fjangfaragesh.github.io/AVR8js-mem/compileandrun.js
 			send.lia("LIA: stop");
 	    }
 	}
-	sketch();
+	setTimeout(sketch, 100)
 	"LIA: wait";
 </script>
 @end
