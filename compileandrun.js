@@ -39,7 +39,7 @@ async function compileAndRun(codeString,divId, cyclesPerFrame,frameDelayMillisec
                         res();
                     }
                 );
-                if (controlFunctionsCallback) stopFunctionCallback(()=>runner.stop(),(s)=>runner.serial(s));
+                if (controlFunctionsCallback) controlFunctionsCallback(()=>runner.stop(),(s)=>runner.serial(s));
             } else {
                 throw new Error("no hex!");
             }
