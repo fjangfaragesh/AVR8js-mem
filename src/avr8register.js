@@ -233,8 +233,23 @@ window.AVR8_REGISTER = {
 	"PINC":0x26,
 	"PORTB":0x25,
 	"DDRB":0x24,
-	"PINB":0x23//,
+	"PINB":0x23,
 //	"":0x22,
 //	"":0x21,
-//	"":0x20
+//	"":0x20,
+    
+    
+// 2 Byte Registers
+	"OCR1B":0x8A,
+	"OCR1A":0x88,
+	"OCR1B":0x8A,
+	"OCR1A":0x88,
+	"ICR1":0x86,
+	"TCNT1":0x84,
+	"ADC":0x78,
+	"SP":0x5D,
+	"EEAR":0x41
+
+    
+    
 }
