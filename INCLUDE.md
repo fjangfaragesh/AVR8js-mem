@@ -3,7 +3,7 @@ author:   Fabian Bär
 
 email:    Fabian.Baer@student.tu-freiberg.de
 
-version:  0.0.2
+version:  0.0.3
 
 comment:  Kein Kommentar!
 
@@ -13,8 +13,9 @@ script: https://fjangfaragesh.github.io/AVR8js-mem/compileandrun.js
 
 @AVR8jsMem.sketch
 <script>
+    console.log("send",send);
 	async function sketch() {
-		console.log("send",send);
+		console.log("send (in async function)",send);
 		let code = `@input`;
 	    try {
 	    	await compileAndRun(code,`@0`, isNaN(`@1`) ? 1000000 : `@1`*1, isNaN(`@2`) ? 0 : `@2`*1, isNaN(`@3`) ? Infinity : `@3`*1);
@@ -23,7 +24,6 @@ script: https://fjangfaragesh.github.io/AVR8js-mem/compileandrun.js
 			console.error(e);
 			send.stop();
 	    }
-	 	
 	}
 	sketch();
 	"LIA: wait";
