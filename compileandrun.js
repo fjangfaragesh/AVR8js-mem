@@ -1,4 +1,6 @@
-async function compileAndRun(codeString,divId, cyclesPerFrame,frameDelayMilliseconds, maxNumberOfCycles) {
+//stopFunctionCallback(f): diese funktion wird con compileAndRun ausgeführt, wenn die Funktion, die den avr stopt bereit ist
+
+async function compileAndRun(codeString,divId, cyclesPerFrame,frameDelayMilliseconds, maxNumberOfCycles, stopFunctionCallback) {
     console.log("compiling...");
     let e = await AVR8js.build(codeString , []);
     console.log(e);
@@ -37,6 +39,7 @@ async function compileAndRun(codeString,divId, cyclesPerFrame,frameDelayMillisec
                         res();
                     }
                 );
+                if (stopFunctionCallback) stopFunctionCallback(function() {runner.stop()});
             } else {
                 throw new Error("no hex!");
             }
