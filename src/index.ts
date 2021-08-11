@@ -86,7 +86,8 @@ window.AVR8js = {
     const BUZZER = container.querySelectorAll<BuzzerElement & HTMLElement>("wokwi-buzzer");
     const PushButton = container.querySelectorAll<PushbuttonElement & HTMLElement>("wokwi-pushbutton");
     const MemOuts = container.querySelectorAll<MemOutElement & HTMLElement>("memout-element");
-    
+    for (let m of MemOuts) m.reset();
+
     const runner = new AVRRunner(hex);
 
     MHZ = MHZ || 16000000

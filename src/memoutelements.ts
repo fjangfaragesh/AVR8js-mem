@@ -23,7 +23,9 @@ class MemOutElement extends HTMLElement implements MemOut {
     updateData(data: Uint8Array, currentCycle: Number) : void {
         this.memOutType.updateData(data,currentCycle);
     }
-    
+    reset() : void {
+        this.memOutType.reset();
+    }
     
     connectedCallback() {
         this.memOutType.showValue();
@@ -77,6 +79,9 @@ class MemOutType {
 
     }
     updateData(data: Uint8Array) : void {
+
+    }
+    reset() : void {
 
     }
 }
@@ -152,6 +157,10 @@ class MemOutTypeText extends MemOutType {
         }
         this.showValue();
     }
+    reset() : void {
+        _valueStr = "unknown";
+        this.showValue();
+    }
 }
 
 class MemOutTypeTextCustom extends MemOutType {
@@ -172,6 +181,10 @@ class MemOutTypeTextCustom extends MemOutType {
     }
     updateData(data: Uint8Array, currentCycle: Number) : void {
         this._valueStr = this._outputFunction(data,currentCycle);
+        this.showValue();
+    }
+    reset() : void {
+        this._valueStr = "";
         this.showValue();
     }
 }
@@ -392,6 +405,10 @@ class MemOutTypeDiagram extends MemOutType {
         this._data.push([currentCycle,v]);
         this.showValue();
     }
+    reset() : void {
+        this._data = [];
+        this.showValue();
+    }
 }
 
 class MemOutTypeDiagram2 extends MemOutType {
@@ -547,6 +564,10 @@ class MemOutTypeDiagram2 extends MemOutType {
             this._datas[i].push([currentCycle,outpts[i]])
         }
        );
+        this.showValue();
+    }
+    reset() : void {
+        this._datas = [];
         this.showValue();
     }
 }
