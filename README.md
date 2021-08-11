@@ -67,4 +67,5 @@ Mit dem ausführen von `compileAndRun(codeString,divId, cyclesPerFrame,frameDela
 - `cyclesPerFrame`: Anzahl der CPU Zyklen, die in einem animations Frame ausgeführt werden. Nach diesen werden die Webkomponenten aktuallisiert und der nächste Frame beginnt (empfohlen: 100000)  
 - `frameDelayMilliseconds`: Zeit in Millisekunden zwischen zwei Frames. Zum Verlangsamen der Simmulation diese erhöhen. Sonst 0 lassen.  
 - `numberOfCycles`: Anzahl der CPU Zyklen, die simmuliert werden sollen. `undefined` oder `Infinity`: Simmulation hört nie auf
-- `stopFunctionCallback`: function(f), diese funktion wird von compileAndRun ausgeführt, wenn die Simmulation gestartet ist. Als parameter wird eine Funktion übergeben, mit der die Simmulation vorzeitig beendet werden kann.
+- `controlFunctionsCallback`: function(stopFunction,serialSend), diese funktion wird von compileAndRun ausgeführt, sobald die Simmulation gestartet ist. Als parameter wird eine Funktion übergeben, mit der die Simmulation vorzeitig beendet werden kann und eine zweite, mit der Daten an die serielle Schnittstelle gesendet werden können
+- `serialOutputHanlder`: ist eine Funktion, die Nachrichten von der Seriellen Schnittstelle des Simmulierten Controllers entgegen nimmt
