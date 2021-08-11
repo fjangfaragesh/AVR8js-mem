@@ -158,7 +158,7 @@ class MemOutTypeText extends MemOutType {
         this.showValue();
     }
     reset() : void {
-        _valueStr = "unknown";
+        this._valueStr = "unknown";
         this.showValue();
     }
 }
