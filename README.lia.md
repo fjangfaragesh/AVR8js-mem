@@ -13,11 +13,19 @@ import: https://fjangfaragesh.github.io/AVR8js-mem/INCLUDE.md
 
 # Lia Include Example
 
+[auf Github](https://github.com/fjangfaragesh/AVR8js-mem/blob/main/README.lia.md)
+[mit LiaScript ausprobieren](https://liascript.github.io/course/?https://fjangfaragesh.github.io/AVR8js-mem/README.lia.md)
+
+
 ## Beispiel 1
 
-<span id="simulation-time"></span><br>
-<wokwi-led color="red" pin="13" label="13"></wokwi-led><br>
-<b>PORTB: </b><memout-element type="bin" address="PORTB"></memout-element> <b>DDRB: </b><memout-element type="bin" address="DDRB"></memout-element><br>
+<lia-keep>
+    <div id="example_div_id">
+        <span id="simulation-time"></span><br>
+        <wokwi-led color="red" pin="13" label="13"></wokwi-led><br>
+        <b>PORTB: </b><memout-element type="bin" address="PORTB"></memout-element> <b>DDRB: </b><memout-element type="bin" address="DDRB"></memout-element><br>
+    </div>
+</lia-keep>
 
 ``` cpp
 // preprocessor definition
@@ -37,6 +45,12 @@ int main (void) {
 }
 ```
 @AVR8jsMem.sketch(example_div_id,100000,1)
+
+
+
+
+
+
 
 
 ## Beispiel 2

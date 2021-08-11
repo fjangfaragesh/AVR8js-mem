@@ -2,6 +2,9 @@
 
 AVR8js-mem ermöglicht es code auf einem simmulierten avr aus zu führen, die Reaktion von an diesen angeschlossenen Komponenten (zum Beispiel LEDs) zu visualisieren und den Inhalt von Registern bzw vom Speicher aus zu lesen und dar zu stellen.
 
+[auf LiaScript](https://liascript.github.io/course/?https://fjangfaragesh.github.io/AVR8js-mem/README.lia.md)
+
+
 ## Nutzung
 [Beispiel HTML Datei (code)](extern_template.html)  
 [Beispiel HTML Datei (ausführen)](https://fjangfaragesh.github.io/AVR8js-mem/extern_template.html)
