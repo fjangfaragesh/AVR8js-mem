@@ -13,9 +13,9 @@ script: https://fjangfaragesh.github.io/AVR8js-mem/compileandrun.js
 
 @AVR8jsMem.sketch
 <script>
-    console.log("send",send);
+    console.debug("send",send);
 	async function sketch() {
-		console.log("send (in async function)",send);
+		console.debug("send (in async function)",send);
 		alert("WARUM GEHT CONSOLE.LOG NET ????? " + send + " " + send.stop);
 		let code = `@input`;
 	    try {
