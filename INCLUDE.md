@@ -18,9 +18,9 @@ script: https://fjangfaragesh.github.io/AVR8js-mem/compileandrun.js
 		let code = `@input`;
 		let stopFunctionCallback = function(f) {
             send.handle("stop",f);
+            send.lia("LIA: terminal");
 		}
 	    try {
-            send.lia("LIA: terminal");
 	    	await compileAndRun(code,`@0`, isNaN(`@1`) ? 1000000 : `@1`*1, isNaN(`@2`) ? 0 : `@2`*1, isNaN(`@3`) ? Infinity : `@3`*1, stopFunctionCallback);
 			send.lia("LIA: stop");
 	    } catch (e) {
