@@ -18,7 +18,7 @@ class MemOutElement extends HTMLElement implements MemOut {
         this._typeStr = "hex";
         this.memOutType = new MemOutType(this);
         this.observedAttributesValues = {};
-        console.log(this);
+ //       console.log(this);
     }
     updateData(data: Uint8Array, currentCycle: Number) : void {
         this.memOutType.updateData(data,currentCycle);
@@ -109,7 +109,7 @@ class MemOutTypeText extends MemOutType {
         if (name === "address") {
             this._addressStr = newValue;
             this._address = parseAddress(newValue);
-            console.log(newValue,"->",this._address);
+ //           console.log(newValue,"->",this._address);
         }
         if (name === "bytes") this._bytes = newValue*1;
         if (name === "endian") this._endian = newValue;

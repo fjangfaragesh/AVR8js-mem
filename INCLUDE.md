@@ -14,7 +14,7 @@ script: https://fjangfaragesh.github.io/AVR8js-mem/compileandrun.js
 @AVR8jsMem.sketch
 <script>
 	async function sketch() {
-        console.log("RUN");
+        console.log("starting simmulation...");
 		let code = `@input`;
 		let controlFunctionsCallback = function(stopFunction,sendSerial) {
             send.handle("stop",stopFunction);

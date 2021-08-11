@@ -1,7 +1,8 @@
 //controlFunctionsCallback(stopFunction, sendSerialFunction): diese funktion wird con compileAndRun ausgeführt, wenn die Funktion, die den avr stopt bereit ist
 
 async function compileAndRun(codeString,divId, cyclesPerFrame,frameDelayMilliseconds, maxNumberOfCycles, controlFunctionsCallback, serialOutputHanlder) {
-    console.log("compiling...");
+    if (serialOutputHanlder == undefined) serialOutputHanlder = console.log;
+    serialOutputHanlder("compiling...");
     let e = await AVR8js.build(codeString , []);
     console.log(e);
     if (e.stderr) {
@@ -28,14 +29,14 @@ async function compileAndRun(codeString,divId, cyclesPerFrame,frameDelayMillisec
             if (e.hex) {
                 let runner = AVR8js.execute(
                     e.hex, 
-                    serialOutputHanlder ?? console.log,
+                    serialOutputHanlder,
                     divId,
                     undefined,
                     cyclesPerFrame*1,
                     frameDelayMilliseconds*1,
                     maxNumberOfCycles ?? Infinity,
                     function() {
-                        console.log("simmulation stoped");
+                        serialOutputHanlder("simmulation ended");
                         res();
                     }
                 );
