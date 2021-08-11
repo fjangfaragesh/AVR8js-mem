@@ -13,10 +13,11 @@ script: https://fjangfaragesh.github.io/AVR8js-mem/compileandrun.js
 
 @AVR8jsMem.sketch
 <script>
-    console.debug("send",send);
+    console.log("send",send);
 	async function sketch() {
-		console.debug("send (in async function)",send);
-		alert("WARUM GEHT CONSOLE.LOG NET ????? " + send + " " + send.stop);
+		console.log("send (in async function)",send);
+
+		alert("WARUM GEHT CONSOLE.LOG NET ????? " + Object.keys(send) + " " + send.stop);
 		let code = `@input`;
 	    try {
 	    	await compileAndRun(code,`@0`, isNaN(`@1`) ? 1000000 : `@1`*1, isNaN(`@2`) ? 0 : `@2`*1, isNaN(`@3`) ? Infinity : `@3`*1);
