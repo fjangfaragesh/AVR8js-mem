@@ -232,7 +232,7 @@ int main(void){
    }
 }
 ```
-@AVR8jsMem.sketch(example4_div_id,5000,5)
+@AVR8jsMem.sketch(example4_div_id,3000,1)
 
 ## Beispiel 5 (Musik macher)
 
@@ -257,7 +257,7 @@ int main(void){
         max="256"
         width="800"
         height="600"
-        interval="500000"
+        interval="1000000"
         title="TCNT1 und OCR1A"
         colors='["red","blue"]'
         labels='["TCNT1","OCR1A"]'
@@ -275,24 +275,30 @@ int main(void){
   TCCR1A |= (1 << COM1A0);  //Set Timer Register
   TCCR1B |= (1 << CS12) | (1 << CS10) | (1 << WGM12);
   OCR1A = 0;
-  int timer = 16;
+  int f = 64;// Frequenz in irgend ner komischen Einheit
   int dummy = 0;
   while(1) {
-   while(timer < 255){ //Fade from low to high
-    timer++;
-    OCR1A = timer;
-    _delay_ms(4);
+   while(f < 512){ //Fade from low to high
+    f++;
+    OCR1A = 16384/f;
+    _delay_us(2000);
 
   }
-   while(timer > 16){ //Fade from high to low
-    timer--;
-    OCR1A = timer;
-    _delay_ms(4);
+   while(f > 64){ //Fade from high to low
+    f--;
+    OCR1A = 16384/f;
+    _delay_us(2000);
     }
    }
 }
 ```
-@AVR8jsMem.sketch(example5_div_id,5000,1)
+@AVR8jsMem.sketch(example5_div_id,3000,0)
+
+Pescaler: 1024 --> 1 Timer Tick = 1024 / 16Mhz = 0.000064s = 64us
+Maximale Periodendauer: 2 * 16384 / 64 Timer Ticks = 512 Timer Ticks = 0.032768s -> 30.5 Hz
+Minimale Periodendauer: 2 * 16384 / 1024 Timer Ticks = 32 Timer Ticks = 0.002048s -> 488.3 Hz
+
+
 
 ## Beispiel 6 Button
 
