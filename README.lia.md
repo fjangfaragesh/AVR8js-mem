@@ -254,7 +254,7 @@ int main(void){
         outputs="[bytesToInt(data[0x84],data[0x85]), bytesToInt(data[0x88],data[0x89])]"
         color="blue"
         min="0"
-        max="256"
+        max="3000"
         width="800"
         height="600"
         interval="1000000"
@@ -270,33 +270,36 @@ int main(void){
 #define F_CPU 16000000UL // 16 MHz clock speed
 #endif
 
+int calcOcrFq(int prescaler,float freq) {
+  return F_CPU/(prescaler*freq);
+}
+//toneId: ... ,A (440Hz) :0,  A# : 1, ... , C : 3, A (880Hz) : 12, ...
+int calcOcrToneId(int prescaler, float toneId) {
+  return calcOcrFq(prescaler,pow(2.0,toneId/12.0)*440.0);
+}
+
 int main(void){
   DDRB |=  (1 << PORTB1); //Define OCR1A as Output
   TCCR1A |= (1 << COM1A0);  //Set Timer Register
-  TCCR1B |= (1 << CS12) | (1 << CS10) | (1 << WGM12);
+  TCCR1B |= (1 << CS10) | (1 << CS11) | (1 << WGM12);
   OCR1A = 0;
-  int f = 64;// Frequenz in irgend ner komischen Einheit
-  int dummy = 0;
+  Serial.begin(115200);
   while(1) {
-   while(f < 512){ //Fade from low to high
-    f++;
-    OCR1A = 16384/f;
-    _delay_us(2000);
-
+    OCR1A = ((int)( calcOcrToneId(64, -14.0)+0.5 ))&0xffff;// G = -14.0
+    _delay_ms(100);
+    OCR1A = ((int)( calcOcrToneId(64, -9.0)+0.5 ))&0xffff;// C = -9.0
+    _delay_ms(100);
+    OCR1A = ((int)( calcOcrToneId(64, -5.0)+0.5 ))&0xffff;// E = -5.0
+    _delay_ms(100);
+    OCR1A = ((int)( calcOcrToneId(64, -2.0)+0.5 ))&0xffff;// G = -2.0
+    _delay_ms(100);
   }
-   while(f > 64){ //Fade from high to low
-    f--;
-    OCR1A = 16384/f;
-    _delay_us(2000);
-    }
-   }
 }
+
 ```
 @AVR8jsMem.sketch(example5_div_id,3000,0)
 
-Pescaler: 1024 --> 1 Timer Tick = 1024 / 16Mhz = 0.000064s = 64us
-Maximale Periodendauer: 2 * 16384 / 64 Timer Ticks = 512 Timer Ticks = 0.032768s -> 30.5 Hz
-Minimale Periodendauer: 2 * 16384 / 1024 Timer Ticks = 32 Timer Ticks = 0.002048s -> 488.3 Hz
+
 
 
 
