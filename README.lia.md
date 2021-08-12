@@ -314,10 +314,17 @@ int main(void){
 
 int main (void) {
    DDRB |= (1 << PB5);
+   int state = 0;
+   // aktives überwachen des Pins
    while(1) {
+   	   if (state ^ ((PINB >> PB4) & 1)) {
        // PINB = (1 << PB5);   // Dieses Feature ist im Simulator
-       PORTB ^= ( 1 << PB5 );
-       _delay_ms(1000);
+      		state ^= 1;
+      		if (state) {
+      			PORTB ^= ( 1 << PB5 );
+      		}
+   	   }
+       _delay_ms(1);
    }
    return 0;
 }
