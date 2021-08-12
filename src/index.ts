@@ -276,7 +276,16 @@ class ConnectablePushButton implements ConnectableComponent {
         this.element.addEventListener("button-press", () => {
  //         if (runner) {   // da muss ich mir noch was überlegen `hust hust`
                 port.setPin(pin % 8, true);
+                console.log("knopp runter gedrückt, der pin " + (pin%8) + " is jetzt gesetzt!");
 //          }
         });
+        this.element.addEventListener("button-release", () => {
+ //           if (runner) {
+                port.setPin(pin % 8, false);
+                console.log("knopp los gelassen, der pin " + (pin%8) + " is jetzt ni mehr gesetzt!");
+//            }
+        });
+        
+        port.setPin(pin % 8, false);
     }
 }
