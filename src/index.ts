@@ -15,8 +15,34 @@ import {
 
 declare const window: any;
 
+// https://images.prismic.io/circuito/8e3a980f0f964cc539b4cbbba2654bb660db6f52_arduino-uno-pinout-diagram.png?auto=compress,format
+const PIN_PORT = {
+    "0":[0,'D'],
+    "1":[1,'D'],
+    "2":[2,'D'],
+    "3":[3,'D'],
+    "4":[4,'D'],
+    "5":[5,'D'],
+    "6":[6,'D'],
+    "7":[7,'D'],
+    "8":[0,'B'],
+    "9":[1,'B'],
+    "10":[2,'B'],
+    "11":[3,'B'],
+    "12":[4,'B'],
+    "13":[5,'B'],
+    "14":[0,'C'], "A0":[0,'C'],
+    "15":[1,'C'], "A1":[1,'C'],
+    "16":[2,'C'], "A2":[2,'C'],
+    "17":[3,'C'], "A3":[3,'C'],
+    "18":[4,'C'], "A4":[4,'C'],
+    "19":[5,'C'], "A5":[5,'C'],
+    "RESET":[6,'C']
+}
+
+
 function pinPort(e:any) : [number | null, string | null]{
-  let port: PORT | null;
+  /*let port: PORT | null;
   let pin = e.getAttribute("pin")
   pin = pin ? parseInt(pin, 10)  : null;
 
@@ -32,8 +58,17 @@ function pinPort(e:any) : [number | null, string | null]{
     port = null;
   }
 
-  return [pin , port]
+  return [pin , port]*/
+  if (PIN_PORT[e.getAttribute("pin")]) return PIN_PORT[e.getAttribute("pin")];
+  return [null, null];
 }
+
+
+
+
+
+
+
 
 window.AVR8js = {
   build: async function (sketch:string, files = []) {
@@ -205,7 +240,7 @@ class ConnectableLED implements ConnectableComponent {
         
         // wenn sich im Port was ändert:
         port.addListener((value)=>{
-            this.element.value = value & (1 << (pin % 8)) ? true : false;
+            this.element.value = value & (1 << pin) ? true : false;
         });
     }
 }
@@ -254,7 +289,7 @@ class ConnectableBuzzer implements ConnectableComponent {
         
         // wenn sich im Port was ändert:
         port.addListener((value)=>{
-            this.element.hasSignal = value & (1 << (pin % 8)) ? true : false;
+            this.element.hasSignal = value & (1 << pin) ? true : false;
         });
     }
 }
@@ -275,17 +310,17 @@ class ConnectablePushButton implements ConnectableComponent {
         
         this.element.addEventListener("button-press", () => {
  //         if (runner) {   // da muss ich mir noch was überlegen `hust hust`
-                port.setPin(pin % 8, true);
-                console.log("knopp runter gedrückt, der pin " + (pin%8) + " is jetzt gesetzt!");
+                port.setPin(pin, true);
+                console.log("knopp runter gedrückt, der pin " + pin + " is jetzt gesetzt!");
 //          }
         });
         this.element.addEventListener("button-release", () => {
  //           if (runner) {
-                port.setPin(pin % 8, false);
-                console.log("knopp los gelassen, der pin " + (pin%8) + " is jetzt ni mehr gesetzt!");
+                port.setPin(pin, false);
+                console.log("knopp los gelassen, der pin " + pin + " is jetzt ni mehr gesetzt!");
 //            }
         });
         
-        port.setPin(pin % 8, false);
+        port.setPin(pin, false);
     }
 }
