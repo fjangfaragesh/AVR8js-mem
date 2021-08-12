@@ -223,11 +223,18 @@ class ConnectableSevenSegmentElement implements ConnectableComponent {
         const port = ports.get(prt);
         if (!port) return;
         
-        this.element.addEventListener("button-press", () => {
- //           if (runner) {   // da muss ich mir noch was überlegen `hust hust`
-                port.setPin(pin % 8, true);
-//            }
-        });
+        port.addListener((value)=>{
+            this.element.values = [
+                    value & 1,
+                    value & 2,
+                    value & 4,
+                    value & 16,
+                    value & 32,
+                    value & 64,
+                    value & 128,
+                    value & 256
+            ];
+        }
     }
 }
 
@@ -266,9 +273,10 @@ class ConnectablePushButton implements ConnectableComponent {
         if (!port) return;
         
         
-        // wenn sich im Port was ändert:
-        port.addListener((value)=>{
-            this.element.hasSignal = value & (1 << (pin % 8)) ? true : false;
+        this.element.addEventListener("button-press", () => {
+ //         if (runner) {   // da muss ich mir noch was überlegen `hust hust`
+                port.setPin(pin % 8, true);
+//          }
         });
     }
 }

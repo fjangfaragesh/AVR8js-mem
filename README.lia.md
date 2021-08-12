@@ -119,30 +119,30 @@ void loop() {
 <lia-keep>
 <div id="example3_div_id">
     <span id="simulation-time"></span><br>
-            <wokwi-led color="green" pin="9" port="B" label="B1"></wokwi-led><br>
-            <!-- memout web komponenten -->
-            <!-- Textausgaben -->
-            <b>PORTB: </b> <memout-element type="bin" address="0x25"></memout-element>
-            <b>DDRB: </b> <memout-element type="bin" address="0x24"></memout-element>
-            <b>PINB: </b> <memout-element type="bin" address="0x23"></memout-element><br>
-            <b>TCCR1: </b> <memout-element type="bin" address="0x80" bytes="2" endian="little"></memout-element><br>
-            <b>TCNT1: </b> <memout-element type="bin" address="0x84" bytes="2" endian="little"></memout-element><br>
-            <b>OCR1A: </b> <memout-element type="bin" address="0x88" bytes="2" endian="little"></memout-element><br>
+    <wokwi-led color="green" pin="9" port="B" label="B1"></wokwi-led><br>
+    <!-- memout web komponenten -->
+    <!-- Textausgaben -->
+    <b>PORTB: </b> <memout-element type="bin" address="0x25"></memout-element>
+    <b>DDRB: </b> <memout-element type="bin" address="0x24"></memout-element>
+    <b>PINB: </b> <memout-element type="bin" address="0x23"></memout-element><br>
+    <b>TCCR1: </b> <memout-element type="bin" address="0x80" bytes="2" endian="little"></memout-element><br>
+    <b>TCNT1: </b> <memout-element type="bin" address="0x84" bytes="2" endian="little"></memout-element><br>
+    <b>OCR1A: </b> <memout-element type="bin" address="0x88" bytes="2" endian="little"></memout-element><br>
             <!-- Diagramm -->
-            <memout-element
-                type="diagram2"
-                outputs="[bytesToInt(data[0x84],data[0x85]), bytesToInt(data[0x88],data[0x89]), bytesToInt(data[0x84],data[0x85]) < bytesToInt(data[0x88],data[0x89]) ? 300 : 260]"
-                color="blue"
-                min="0"
-                max="300"
-                width="800"
-                height="600"
-                interval="2000000"
-                title="TCNT1 und OCR1A"
-                colors='["red","blue","green"]'
-                labels='["TCNT1","OCR1A","LED"]'
-            ></memout-element><br>
-        </div>
+    <memout-element
+        type="diagram2"
+        outputs="[bytesToInt(data[0x84],data[0x85]), bytesToInt(data[0x88],data[0x89]), bytesToInt(data[0x84],data[0x85]) < bytesToInt(data[0x88],data[0x89]) ? 300 : 260]"
+        color="blue"
+        min="0"
+        max="300"
+        width="800"
+        height="600"
+        interval="2000000"
+        title="TCNT1 und OCR1A"
+        colors='["red","blue","green"]'
+        labels='["TCNT1","OCR1A","LED"]'
+    ></memout-element><br>
+</div>
 </lia-keep>
 
 ``` cpp
@@ -179,30 +179,30 @@ int main(void){
 <lia-keep>
 <div id="example4_div_id">
     <span id="simulation-time"></span><br>
-            <wokwi-led color="green" pin="9" port="B" label="B1"></wokwi-led><br>
-            <!-- memout web komponenten -->
-            <!-- Textausgaben -->
-            <b>PORTB: </b> <memout-element type="bin" address="0x25"></memout-element>
-            <b>DDRB: </b> <memout-element type="bin" address="0x24"></memout-element>
-            <b>PINB: </b> <memout-element type="bin" address="0x23"></memout-element><br>
-            <b>TCCR1: </b> <memout-element type="bin" address="0x80" bytes="2" endian="little"></memout-element><br>
-            <b>TCNT1: </b> <memout-element type="bin" address="0x84" bytes="2" endian="little"></memout-element><br>
-            <b>OCR1A: </b> <memout-element type="bin" address="0x88" bytes="2" endian="little"></memout-element><br>
+    <wokwi-led color="green" pin="9" port="B" label="B1"></wokwi-led><br>
+    <!-- memout web komponenten -->
+    <!-- Textausgaben -->
+    <b>PORTB: </b> <memout-element type="bin" address="0x25"></memout-element>
+    <b>DDRB: </b> <memout-element type="bin" address="0x24"></memout-element>
+    <b>PINB: </b> <memout-element type="bin" address="0x23"></memout-element><br>
+    <b>TCCR1: </b> <memout-element type="bin" address="0x80" bytes="2" endian="little"></memout-element><br>
+    <b>TCNT1: </b> <memout-element type="bin" address="0x84" bytes="2" endian="little"></memout-element><br>
+    <b>OCR1A: </b> <memout-element type="bin" address="0x88" bytes="2" endian="little"></memout-element><br>
             <!-- Diagramm -->
-            <memout-element
-                type="diagram2"
-                outputs="[bytesToInt(data[0x84],data[0x85]), bytesToInt(data[0x88],data[0x89]), bytesToInt(data[0x84],data[0x85]) < bytesToInt(data[0x88],data[0x89]) ? 300 : 260]"
-                color="blue"
-                min="0"
-                max="300"
-                width="800"
-                height="600"
-                interval="1000000"
-                title="TCNT1 und OCR1A"
-                colors='["red","blue","green"]'
-                labels='["TCNT1","OCR1A","LED"]'
-            ></memout-element><br>
-        </div>
+    <memout-element
+        type="diagram2"
+        outputs="[bytesToInt(data[0x84],data[0x85]), bytesToInt(data[0x88],data[0x89]), bytesToInt(data[0x84],data[0x85]) < bytesToInt(data[0x88],data[0x89]) ? 300 : 260]"
+        color="blue"
+        min="0"
+        max="300"
+        width="800"
+        height="600"
+        interval="1000000"
+        title="TCNT1 und OCR1A"
+        colors='["red","blue","green"]'
+        labels='["TCNT1","OCR1A","LED"]'
+    ></memout-element><br>
+</div>
 </lia-keep>
 
 ``` cpp
@@ -239,30 +239,30 @@ int main(void){
 <lia-keep>
 <div id="example5_div_id">
     <span id="simulation-time"></span><br>
-            <wokwi-led color="green" pin="9" port="B" label="B1"></wokwi-led><br>
+    <wokwi-led color="green" pin="9" port="B" label="B1"></wokwi-led><br>
             <!-- memout web komponenten -->
             <!-- Textausgaben -->
-            <b>PORTB: </b> <memout-element type="bin" address="0x25"></memout-element>
-            <b>DDRB: </b> <memout-element type="bin" address="0x24"></memout-element>
-            <b>PINB: </b> <memout-element type="bin" address="0x23"></memout-element><br>
-            <b>TCCR1: </b> <memout-element type="bin" address="0x80" bytes="2" endian="little"></memout-element><br>
-            <b>TCNT1: </b> <memout-element type="bin" address="0x84" bytes="2" endian="little"></memout-element><br>
-            <b>OCR1A: </b> <memout-element type="bin" address="0x88" bytes="2" endian="little"></memout-element><br>
+    <b>PORTB: </b> <memout-element type="bin" address="0x25"></memout-element>
+    <b>DDRB: </b> <memout-element type="bin" address="0x24"></memout-element>
+    <b>PINB: </b> <memout-element type="bin" address="0x23"></memout-element><br>
+    <b>TCCR1: </b> <memout-element type="bin" address="0x80" bytes="2" endian="little"></memout-element><br>
+    <b>TCNT1: </b> <memout-element type="bin" address="0x84" bytes="2" endian="little"></memout-element><br>
+    <b>OCR1A: </b> <memout-element type="bin" address="0x88" bytes="2" endian="little"></memout-element><br>
             <!-- Diagramm -->
-            <memout-element
-                type="diagram2"
-                outputs="[bytesToInt(data[0x84],data[0x85]), bytesToInt(data[0x88],data[0x89])]"
-                color="blue"
-                min="0"
-                max="256"
-                width="800"
-                height="600"
-                interval="500000"
-                title="TCNT1 und OCR1A"
-                colors='["red","blue"]'
-                labels='["TCNT1","OCR1A"]'
-            ></memout-element><br>
-        </div>
+    <memout-element
+        type="diagram2"
+        outputs="[bytesToInt(data[0x84],data[0x85]), bytesToInt(data[0x88],data[0x89])]"
+        color="blue"
+        min="0"
+        max="256"
+        width="800"
+        height="600"
+        interval="500000"
+        title="TCNT1 und OCR1A"
+        colors='["red","blue"]'
+        labels='["TCNT1","OCR1A"]'
+    ></memout-element><br>
+</div>
 </lia-keep>
 
 ``` cpp
@@ -293,3 +293,33 @@ int main(void){
 }
 ```
 @AVR8jsMem.sketch(example5_div_id,5000,1)
+
+## Beispiel 6 Button
+
+<lia-keep>
+    <div id="example_div6_id">
+        <span id="simulation-time"></span><br>
+        <wokwi-led color="yellow" pin="13" label="13"></wokwi-led><br>
+        <wokwi-pushbutton color="red" pin="14" label="Drück mich!"></wokwi-pushbutton><br>
+        <memout-element type="bin" address="PORTB"></memout-element> <memout-element type="bin" address="DDRB"></memout-element> <memout-element type="bin" address="PINB"></memout-element><br>
+    </div>
+</lia-keep>
+
+``` cpp
+// preprocessor definition
+#define F_CPU 16000000UL
+
+#include <avr/io.h>
+#include <util/delay.h>
+
+int main (void) {
+   DDRB |= (1 << PB5);
+   while(1) {
+       // PINB = (1 << PB5);   // Dieses Feature ist im Simulator
+       PORTB ^= ( 1 << PB5 );
+       _delay_ms(1000);
+   }
+   return 0;
+}
+```
+@AVR8jsMem.sketch(example_div6_id,100000,1)
