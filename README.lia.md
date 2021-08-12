@@ -161,13 +161,13 @@ int main(void){
    while(timer < 255){ //Fade from low to high
     timer++;
     OCR1A = timer;
-    for (int i = 0; i < 10000; i++) if (TCNT1) dummy++;// nur für den Simmulator, damit er TCNT1 aktuallisiert
+    _delay_ms(4);
 
   }
    while(timer > 0){ //Fade from high to low
     timer--;
     OCR1A = timer;
-    for (int i = 0; i < 10000; i++) if (TCNT1) dummy++;// nur für den Simmulator, damit er TCNT1 aktuallisiert
+    _delay_ms(4);
     }
    }
 }
@@ -221,13 +221,13 @@ int main(void){
    while(timer < 255){ //Fade from low to high
     timer++;
     OCR1A = timer;
-    for (int i = 0; i < 10000; i++) if (TCNT1) dummy++;// nur für den Simmulator, damit er TCNT1 aktuallisiert
+    _delay_ms(4);
 
   }
    while(timer > 0){ //Fade from high to low
     timer--;
     OCR1A = timer;
-    for (int i = 0; i < 10000; i++) if (TCNT1) dummy++;// nur für den Simmulator, damit er TCNT1 aktuallisiert
+    _delay_ms(4);
     }
    }
 }
@@ -281,13 +281,13 @@ int main(void){
    while(timer < 255){ //Fade from low to high
     timer++;
     OCR1A = timer;
-    for (int i = 0; i < 5000; i++) if (TCNT1) dummy++;// nur für den Simmulator, damit er TCNT1 aktuallisiert
+    _delay_ms(4);
 
   }
    while(timer > 16){ //Fade from high to low
     timer--;
     OCR1A = timer;
-    for (int i = 0; i < 5000; i++) if (TCNT1) dummy++;// nur für den Simmulator, damit er TCNT1 aktuallisiert
+    _delay_ms(4);
     }
    }
 }
