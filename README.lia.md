@@ -318,7 +318,6 @@ int main (void) {
    // aktives überwachen des Pins
    while(1) {
    	   if (state ^ ((PINB >> PB4) & 1)) {
-       // PINB = (1 << PB5);   // Dieses Feature ist im Simulator
       		state ^= 1;
       		if (state) {
       			PORTB ^= ( 1 << PB5 );

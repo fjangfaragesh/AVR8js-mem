@@ -17,16 +17,16 @@
   "author": "André Dietrich",
   "license": "ISC",
   "dependencies": {
-    "@webcomponents/custom-elements": "^1.4.3",
+    "@webcomponents/custom-elements": "^1.5.0",
     "@wokwi/elements": "^0.27.2",
     "avr8js": "^0.11.4",
-    "echarts": "^5.1.1"
+    "echarts": "^5.1.2"
   },
   "browserslist": [
     "last 2 years"
   ],
   "devDependencies": {
     "parcel": "^1.12.4",
-    "typescript": "^4.0.5"
+    "typescript": "^4.3.5"
   }
 }
