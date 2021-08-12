@@ -300,7 +300,7 @@ int main(void){
     <div id="example_div6_id">
         <span id="simulation-time"></span><br>
         <wokwi-led color="yellow" pin="13" label="13"></wokwi-led><br>
-        <wokwi-pushbutton color="red" pin="14" label="Drück mich!"></wokwi-pushbutton><br>
+        <wokwi-pushbutton color="red" pin="12" label="Drück mich!"></wokwi-pushbutton><br>
         <memout-element type="bin" address="PORTB"></memout-element> <memout-element type="bin" address="DDRB"></memout-element> <memout-element type="bin" address="PINB"></memout-element><br>
     </div>
 </lia-keep>
