@@ -81,20 +81,31 @@ window.AVR8js = {
 
     const container = document.getElementById(id) || document
 
+    const connectableComponents : Array<ConnectableComponent> = [];
+    
     const LEDs: NodeListOf<LEDElement & HTMLElement> = container.querySelectorAll("wokwi-led");
     const SEG7 = container.querySelectorAll<SevenSegmentElement & HTMLElement>("wokwi-7segment");
     const BUZZER = container.querySelectorAll<BuzzerElement & HTMLElement>("wokwi-buzzer");
     const PushButton = container.querySelectorAll<PushbuttonElement & HTMLElement>("wokwi-pushbutton");
+    
+    for (let led of LEDs) connectableComponents.push(new ConnectableLED(led));
+    for (let s7 of SEG7) connectableComponents.push(new ConnectableSevenSegmentElement(s7));
+    for (let buzzer of BUZZER) connectableComponents.push(new ConnectableBuzzer(buzzer));
+    for (let buttons of PushButton) connectableComponents.push(new ConnectablePushButton(buttons));
+
+    
     const MemOuts = container.querySelectorAll<MemOutElement & HTMLElement>("memout-element");
     for (let m of MemOuts) m.reset();
 
+    
     const runner = new AVRRunner(hex);
 
     MHZ = MHZ || 16000000
     cyclesPerFrame = cyclesPerFrame || 500000;
     frameDelayMilliseconds = frameDelayMilliseconds || 0;
-    
-    for(const PORT of PORTS) {
+        
+    for (const cc of connectableComponents) cc.connect(runner.port);
+/*    for(const PORT of PORTS) {
       // Hook to PORTB register
       const port = runner.port.get(PORT)
 
@@ -154,7 +165,7 @@ window.AVR8js = {
           })
         });
       }
-    }
+    }*/
 
     // Serial port output support
     runner.usart.onLineTransmit = (value) => {
@@ -171,4 +182,93 @@ window.AVR8js = {
 
     return runner;
   }
+}
+
+
+interface ConnectableComponent {
+    connect(ports:Map<PORT, AVRIOPort>);
+}
+
+
+
+
+class ConnectableLED implements ConnectableComponent {
+    constructor(ledElement: LEDElement) {
+        this.element = ledElement;
+    }
+    connect(ports:Map<PORT, AVRIOPort>) {
+        let [pin, prt] = pinPort(this.element);// get pin number and port name
+        if (prt === null || prt === undefined) return;
+        const port = ports.get(prt);
+        if (!port) return;
+        
+        
+        // wenn sich im Port was ändert:
+        port.addListener((value)=>{
+            this.element.value = value & (1 << (pin % 8)) ? true : false;
+        });
+    }
+}
+
+
+
+
+class ConnectableSevenSegmentElement implements ConnectableComponent {
+    constructor(sevenSegmentElement: SevenSegmentElement) {
+        this.element = sevenSegmentElement;
+    }
+    connect(ports:Map<PORT, AVRIOPort>) {
+        let [pin, prt] = pinPort(this.element);// get pin number and port name
+        if (prt === null || prt === undefined) return;
+        const port = ports.get(prt);
+        if (!port) return;
+        
+        this.element.addEventListener("button-press", () => {
+ //           if (runner) {   // da muss ich mir noch was überlegen `hust hust`
+                port.setPin(pin % 8, true);
+//            }
+        });
+    }
+}
+
+
+
+
+class ConnectableBuzzer implements ConnectableComponent {
+    constructor(buzzerElement: BuzzerElement) {
+        this.element = buzzerElement;
+    }
+    connect(ports:Map<PORT, AVRIOPort>) {
+        let [pin, prt] = pinPort(this.element);// get pin number and port name
+        if (prt === null || prt === undefined) return;
+        const port = ports.get(prt);
+        if (!port) return;
+        
+        
+        // wenn sich im Port was ändert:
+        port.addListener((value)=>{
+            this.element.hasSignal = value & (1 << (pin % 8)) ? true : false;
+        });
+    }
+}
+
+
+
+
+class ConnectablePushButton implements ConnectableComponent {
+    constructor(pushButtonElement: PushbuttonElement) {
+        this.element = pushButtonElement;
+    }
+    connect(ports:Map<PORT, AVRIOPort>) {
+        let [pin, prt] = pinPort(this.element);// get pin number and port name
+        if (prt === null || prt === undefined) return;
+        const port = ports.get(prt);
+        if (!port) return;
+        
+        
+        // wenn sich im Port was ändert:
+        port.addListener((value)=>{
+            this.element.hasSignal = value & (1 << (pin % 8)) ? true : false;
+        });
+    }
 }
