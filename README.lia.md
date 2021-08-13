@@ -234,6 +234,9 @@ int main(void){
 
 ## Beispiel 5 (Musik macher)
 
+Einfach an Pin B2 (auf Arduino Pin Digital 10) mit einem Widerstand Kopfhörer oder Lautsprecher anschließen und raten was gespielt wird. (`NOTE_TICK_DURATION_MILLISECONDS` sollte vorher auf 40 gesetzt werden, sonst spielt es zu schnell)
+
+
 <lia-keep>
 <div id="example5_div_id">
     <span id="simulation-time"></span><br>
@@ -258,7 +261,7 @@ int main(void){
         width="800"
         height="600"
         interval="1000000"
-        title="TCNT1 und OCR1A"
+        title="TCNT1, OCR1A, OCR1B und PB2"
         colors='["red","blue","yellow","green"]'
         labels='["TCNT1","OCR1A","OCR1B","PB2 (Audio)"]'
     ></memout-element><br>
@@ -286,9 +289,9 @@ typedef struct {
 } Note;
 
 Note notes[] = {
- {.tone=3,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=2,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=-2,.pulseWidth=0.25,.duration=4},{.tone=3,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=8,.pulseWidth=0.5,.duration=4},{.tone=-2,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=3,.pulseWidth=0.5,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=8,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=8,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=12,.pulseWidth=0.5,.duration=4},{.tone=-2,.pulseWidth=0.25,.duration=4},{.tone=12,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=10,.pulseWidth=0.5,.duration=4},{.tone=8,.pulseWidth=0.5,.duration=4},{.tone=10,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=3,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-2,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=12,.pulseWidth=0.5,.duration=4},{.tone=-16,.pulseWidth=0.25,.duration=4},{.tone=10,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=8,.pulseWidth=0.5,.duration=4},{.tone=-16,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=-2,.pulseWidth=0.25,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=-2,.pulseWidth=0.25,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=3,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=-21,.pulseWidth=0.125,.duration=4},{.tone=-9,.pulseWidth=0.125,.duration=4},{.tone=-21,.pulseWidth=0.08333333333333333,.duration=4},{.tone=-9,.pulseWidth=0.08333333333333333,.duration=4},{.tone=-21,.pulseWidth=0.0625,.duration=4},{.tone=-9,.pulseWidth=0.0625,.duration=4},{.tone=-21,.pulseWidth=0.05,.duration=4},{.tone=-9,.pulseWidth=0.041666666666666664,.duration=4},{.tone=-21,.pulseWidth=0.03571428571428571,.duration=4},{.tone=-9,.pulseWidth=0.03125,.duration=4},{.tone=-21,.pulseWidth=0.027777777777777776,.duration=4},{.tone=-9,.pulseWidth=0.025,.duration=4},{.tone=-21,.pulseWidth=0.020833333333333332,.duration=4},{.tone=0,.pulseWidth=1,.duration=16},
- };
- int notesLength = sizeof(notes)/sizeof(Note);
+ {.tone=3,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=2,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=-2,.pulseWidth=0.25,.duration=4},{.tone=3,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=8,.pulseWidth=0.5,.duration=4},{.tone=-2,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=3,.pulseWidth=0.5,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=8,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=8,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=12,.pulseWidth=0.5,.duration=4},{.tone=-2,.pulseWidth=0.25,.duration=4},{.tone=12,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=10,.pulseWidth=0.5,.duration=4},{.tone=8,.pulseWidth=0.5,.duration=4},{.tone=10,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=3,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-2,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=12,.pulseWidth=0.5,.duration=4},{.tone=-16,.pulseWidth=0.25,.duration=4},{.tone=10,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=8,.pulseWidth=0.5,.duration=4},{.tone=-16,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=-2,.pulseWidth=0.25,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=-2,.pulseWidth=0.25,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=3,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=-21,.pulseWidth=0.125,.duration=4},{.tone=-9,.pulseWidth=0.125,.duration=4},{.tone=-21,.pulseWidth=0.08333333333333333,.duration=4},{.tone=-9,.pulseWidth=0.08333333333333333,.duration=4},{.tone=-21,.pulseWidth=0.0625,.duration=4},{.tone=-9,.pulseWidth=0.0625,.duration=4},{.tone=-21,.pulseWidth=0.05,.duration=4},{.tone=-9,.pulseWidth=0.041666666666666664,.duration=4},{.tone=-21,.pulseWidth=0.03571428571428571,.duration=4},{.tone=-9,.pulseWidth=0.03125,.duration=4},{.tone=-21,.pulseWidth=0.027777777777777776,.duration=4},{.tone=-9,.pulseWidth=0.025,.duration=4},{.tone=-21,.pulseWidth=0.020833333333333332,.duration=4},{.tone=0,.pulseWidth=1,.duration=16}
+};
+int notesLength = sizeof(notes)/sizeof(Note);
 
 int calcOcrFq(int prescaler,float freq) {
   return (int)(F_CPU/(prescaler*freq) + 0.5) & 0xffff;
@@ -307,9 +310,9 @@ void playFq(int prescaler,float fq, float pulseWidth) {
 }
 
 int main(void){
-  DDRB |=  (1 << PORTB2); //Define OCR1B as Output (Pin Name auf arduino: 9)
-  TCCR1A |= (1 << COM1A0) | (1 << COM1B1) | (1 << WGM10);  //Set Timer Register
-  TCCR1B |= (1 << CS10) | (1 << CS11) | (1 << WGM13);
+  DDRB |=  (1 << PORTB2); //Define OCR1B as Output (Pin Name auf arduino: 10)
+  TCCR1A |= (1 << COM1A0) | (1 << COM1B1) | (1 << WGM10); // PB2: output, phase correct PWM Modus 9
+  TCCR1B |= (1 << CS10) | (1 << CS11) | (1 << WGM13);// prescaler=64, Modus 9
   OCR1A = 0;
   OCR1B = 500;
   int n = 0;
@@ -323,7 +326,6 @@ int main(void){
 }
 ```
 @AVR8jsMem.sketch(example5_div_id,3000,0)
-
 
 
 
