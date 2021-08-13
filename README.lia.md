@@ -251,7 +251,7 @@ int main(void){
             <!-- Diagramm -->
     <memout-element
         type="diagram2"
-        outputs="[bytesToInt(data[0x84],data[0x85]), bytesToInt(data[0x88],data[0x89]), bytesToInt(data[AVR8_REGISTER.OCR1BL],data[AVR8_REGISTER.OCR1BH])]"
+        outputs="[bytesToInt(data[0x84],data[0x85]), bytesToInt(data[0x88],data[0x89]), bytesToInt(data[AVR8_REGISTER.OCR1BL],data[AVR8_REGISTER.OCR1BH]),(bytesToInt(data[0x84],data[0x85]) < bytesToInt(data[AVR8_REGISTER.OCR1BL],data[AVR8_REGISTER.OCR1BH]))*450 + 2500]"
         color="blue"
         min="0"
         max="3000"
@@ -259,8 +259,8 @@ int main(void){
         height="600"
         interval="1000000"
         title="TCNT1 und OCR1A"
-        colors='["red","blue","yellow"]'
-        labels='["TCNT1","OCR1A","OCR1B"]'
+        colors='["red","blue","yellow","green"]'
+        labels='["TCNT1","OCR1A","OCR1B","PB2 (Audio)"]'
     ></memout-element><br>
 </div>
 </lia-keep>
@@ -288,7 +288,7 @@ Note notes[7] = {
   {.tone = -2.0, .pulseWidth = 0.5, .duration = 4},
   {.tone = -5.0, .pulseWidth = 0.5, .duration = 4},
   {.tone = -9.0, .pulseWidth = 0.5, .duration = 4},
-  {.tone = -9.0, .pulseWidth = 0.5, .duration = 4},
+  {.tone = -21.0, .pulseWidth = 0.5, .duration = 4},
   {.tone = -21.0, .pulseWidth = 0.1, .duration = 8}
 
 };
