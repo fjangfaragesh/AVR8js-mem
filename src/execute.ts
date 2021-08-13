@@ -84,7 +84,7 @@ export class AVRRunner {
             }
             //aktuallisieren des Speichers für memout-elements:
             for (let i = 0; i < this.cpu.readHooks.length; i++) {
-                if (this.cpu.readHooks[i] !== undefined) this.cpu.data[i] = this.cpu.readHooks[i](i);//darf man das?  könnte zum Beispeil beim Analog-Digitalwandler ein Problem sein, da das aussen eines Registers das Zurückschreiben pausiert oder wieder freigibt
+                if (this.cpu.readHooks[i] !== undefined) this.cpu.data[i] = this.cpu.readHooks[i](i);//darf man das?  könnte zum Beispeil beim Analog-Digitalwandler ein Problem sein, da das auslesen eines Registers das Schreiben in das andere pausiert oder wieder freigibt
             }
             
             callback(this.cpu);

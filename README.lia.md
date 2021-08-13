@@ -119,7 +119,7 @@ void loop() {
 <lia-keep>
 <div id="example3_div_id">
     <span id="simulation-time"></span><br>
-    <wokwi-led color="green" pin="9" port="B" label="B1"></wokwi-led><br>
+    <wokwi-led color="green" pin="9" label="B1"></wokwi-led><br>
     <!-- memout web komponenten -->
     <!-- Textausgaben -->
     <b>PORTB: </b> <memout-element type="bin" address="0x25"></memout-element>
@@ -155,18 +155,17 @@ int main(void){
   TCCR1A |= (1 << COM1A1) | (1 << WGM10);  //Set Timer Register
   TCCR1B |= (1 << CS12) | (1 << CS10);
   OCR1A = 0;
-  int timer = 0;
-  int dummy = 0;
+  int timerCompareValue = 0;
   while(1) {
-   while(timer < 255){ //Fade from low to high
-    timer++;
-    OCR1A = timer;
+   while(timerCompareValue < 255){ //Fade from low to high
+    timerCompareValue++;
+    OCR1A = timerCompareValue;
     _delay_ms(4);
 
   }
-   while(timer > 0){ //Fade from high to low
-    timer--;
-    OCR1A = timer;
+   while(timerCompareValue > 0){ //Fade from high to low
+    timerCompareValue--;
+    OCR1A = timerCompareValue;
     _delay_ms(4);
     }
    }
@@ -179,7 +178,7 @@ int main(void){
 <lia-keep>
 <div id="example4_div_id">
     <span id="simulation-time"></span><br>
-    <wokwi-led color="green" pin="9" port="B" label="B1"></wokwi-led><br>
+    <wokwi-led color="green" pin="9" label="B1"></wokwi-led><br>
     <!-- memout web komponenten -->
     <!-- Textausgaben -->
     <b>PORTB: </b> <memout-element type="bin" address="0x25"></memout-element>
@@ -215,18 +214,17 @@ int main(void){
   TCCR1A |= (1 << COM1A1) | (1 << WGM10);  //Set Timer Register
   TCCR1B |= (1 << CS12) | (1 << CS10) | (1 << WGM12);
   OCR1A = 0;
-  int timer = 0;
-  int dummy = 0;
+  int timerCompareValue = 0;
   while(1) {
-   while(timer < 255){ //Fade from low to high
-    timer++;
-    OCR1A = timer;
+   while(timerCompareValue < 255){ //Fade from low to high
+    timerCompareValue++;
+    OCR1A = timerCompareValue;
     _delay_ms(4);
 
   }
-   while(timer > 0){ //Fade from high to low
-    timer--;
-    OCR1A = timer;
+   while(timerCompareValue > 0){ //Fade from high to low
+    timerCompareValue--;
+    OCR1A = timerCompareValue;
     _delay_ms(4);
     }
    }
@@ -239,7 +237,8 @@ int main(void){
 <lia-keep>
 <div id="example5_div_id">
     <span id="simulation-time"></span><br>
-    <wokwi-led color="green" pin="9" port="B" label="B1"></wokwi-led><br>
+    <wokwi-led color="green" pin="10" label="B2"></wokwi-led><br>
+
             <!-- memout web komponenten -->
             <!-- Textausgaben -->
     <b>PORTB: </b> <memout-element type="bin" address="0x25"></memout-element>
@@ -248,10 +247,11 @@ int main(void){
     <b>TCCR1: </b> <memout-element type="bin" address="0x80" bytes="2" endian="little"></memout-element><br>
     <b>TCNT1: </b> <memout-element type="bin" address="0x84" bytes="2" endian="little"></memout-element><br>
     <b>OCR1A: </b> <memout-element type="bin" address="0x88" bytes="2" endian="little"></memout-element><br>
+    <b>OCR1B: </b> <memout-element type="bin" address="0x88" bytes="2" endian="little"></memout-element><br>
             <!-- Diagramm -->
     <memout-element
         type="diagram2"
-        outputs="[bytesToInt(data[0x84],data[0x85]), bytesToInt(data[0x88],data[0x89])]"
+        outputs="[bytesToInt(data[0x84],data[0x85]), bytesToInt(data[0x88],data[0x89]), bytesToInt(data[AVR8_REGISTER.OCR1BL],data[AVR8_REGISTER.OCR1BH])]"
         color="blue"
         min="0"
         max="3000"
@@ -259,8 +259,8 @@ int main(void){
         height="600"
         interval="1000000"
         title="TCNT1 und OCR1A"
-        colors='["red","blue"]'
-        labels='["TCNT1","OCR1A"]'
+        colors='["red","blue","yellow"]'
+        labels='["TCNT1","OCR1A","OCR1B"]'
     ></memout-element><br>
 </div>
 </lia-keep>
@@ -269,33 +269,60 @@ int main(void){
 #ifndef F_CPU
 #define F_CPU 16000000UL // 16 MHz clock speed
 #endif
+#ifndef F_CPU
+#define F_CPU 16000000UL // 16 MHz clock speed
+#endif
+const int NOTE_TICK_DURATION_MILLISECONDS = 10;//Simulation
+//const int NOTE_TICK_DURATION_MILLISECONDS = 100;//Real Arduino
+
+
+typedef struct {
+  float tone;
+  float pulseWidth;
+  int duration; // duration in note-ticks
+} Note;
+
+Note notes[7] = {
+  {.tone = -9.0, .pulseWidth = 0.5, .duration = 4},
+  {.tone = -5.0, .pulseWidth = 0.5, .duration = 4},
+  {.tone = -2.0, .pulseWidth = 0.5, .duration = 4},
+  {.tone = -5.0, .pulseWidth = 0.5, .duration = 4},
+  {.tone = -9.0, .pulseWidth = 0.5, .duration = 4},
+  {.tone = -9.0, .pulseWidth = 0.5, .duration = 4},
+  {.tone = -21.0, .pulseWidth = 0.1, .duration = 8}
+
+};
+int notesLength = 7;
 
 int calcOcrFq(int prescaler,float freq) {
-  return F_CPU/(prescaler*freq);
+  return (int)(F_CPU/(prescaler*freq) + 0.5) & 0xffff;
 }
 //toneId: ... ,A (440Hz) :0,  A# : 1, ... , C : 3, A (880Hz) : 12, ...
-int calcOcrToneId(int prescaler, float toneId) {
-  return calcOcrFq(prescaler,pow(2.0,toneId/12.0)*440.0);
+int calcFreq(float toneId) {
+  return pow(2.0,toneId/12.0)*440.0;
+}
+// pulseWidth between 0.0 and 1.0
+void playFq(int prescaler,float fq, float pulseWidth) {
+  int timerTop = calcOcrFq(prescaler,fq);
+  int timerCompare = timerTop*pulseWidth + 0.5;
+  OCR1A = timerTop;
+  OCR1B = timerCompare;
+  TCNT1 = 0;
 }
 
 int main(void){
-  DDRB |=  (1 << PORTB1); //Define OCR1A as Output
-  TCCR1A |= (1 << COM1A0);  //Set Timer Register
-  TCCR1B |= (1 << CS10) | (1 << CS11) | (1 << WGM12);
+  DDRB |=  (1 << PORTB2); //Define OCR1B as Output (Pin Name auf arduino: 9)
+  TCCR1A |= (1 << COM1A0) | (1 << COM1B1) | (1 << WGM10);  //Set Timer Register
+  TCCR1B |= (1 << CS10) | (1 << CS11) | (1 << WGM13);
   OCR1A = 0;
-  Serial.begin(115200);
+  OCR1B = 500;
   while(1) {
-    OCR1A = ((int)( calcOcrToneId(64, -14.0)+0.5 ))&0xffff;// G = -14.0
-    _delay_ms(100);
-    OCR1A = ((int)( calcOcrToneId(64, -9.0)+0.5 ))&0xffff;// C = -9.0
-    _delay_ms(100);
-    OCR1A = ((int)( calcOcrToneId(64, -5.0)+0.5 ))&0xffff;// E = -5.0
-    _delay_ms(100);
-    OCR1A = ((int)( calcOcrToneId(64, -2.0)+0.5 ))&0xffff;// G = -2.0
-    _delay_ms(100);
+    for (int i = 0; i < notesLength; i++) {
+      playFq(64, calcFreq(notes[i].tone), notes[i].pulseWidth);
+      for (int t = 0; t < notes[i].duration; t++) _delay_ms(NOTE_TICK_DURATION_MILLISECONDS);
+    }
   }
 }
-
 ```
 @AVR8jsMem.sketch(example5_div_id,3000,0)
 
