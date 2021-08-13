@@ -1,0 +1,191 @@
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <script>
+const MEL = 0.5;
+const BAS = 0.25;
+const OFF = 1.0;
+
+const tA = 0;
+const tAsh = 1;
+const tB = 2;
+const tC = 3;
+const tCsh = 4;
+const tD = 5;
+const tDsh = 6;
+const tE = 7;
+const tF = 8;
+const tFsh = 9;
+const tG = 10;
+const tGsh = 11;
+
+const song = [];
+
+
+function build() {
+    let s = [];
+    let lastT = 0;
+    let y;
+    for (let x of song) {
+        if (y != undefined) {
+            if (x.time - y.time <= 0) throw new Error("meep");
+            s += "{.tone=" + y.note + ",.pulseWidth=" + y.pulseWidth + ",.duration=" + (x.time - y.time) + "},";
+        }
+        y = x;
+    }
+    s += "{.tone=" + y.note + ",.pulseWidth=" + y.pulseWidth + ",.duration=" + 16 + "},";
+    document.body.immerHTML = "";
+    document.body.appendChild(document.createTextNode(s));
+}
+
+
+function add(time,  tone,oct, pw) {
+    song.push({"note":tone + 12*oct,"pulseWidth":pw, "time":time});
+}
+
+let takt = 0;
+add(  takt*32 + 0*4, tC, 0, MEL);
+add(  takt*32 + 1*4, tC,-2, BAS);
+add(  takt*32 + 2*4, 0,  0,  OFF);
+add(  takt*32 + 3*4, tC,-1, BAS);
+add(  takt*32 + 4*4, tB, 0, MEL);
+add(  takt*32 + 5*4, tG,-2, BAS);
+add(  takt*32 + 6*4, tD, 0, MEL);
+add(  takt*32 + 7*4, tG, -1,BAS);
+takt++;
+
+add(  takt*32 + 0*4, tC, 0, MEL);
+add(  takt*32 + 1*4, tC,-2, BAS);
+add(  takt*32 + 2*4, 0,  0,  OFF);
+add(  takt*32 + 3*4, tC,-1, BAS);
+add(  takt*32 + 4*4, 0, 0, OFF);
+add(  takt*32 + 5*4, tC,-2, BAS);
+add(  takt*32 + 6*4, 0, 0, OFF);
+add(  takt*32 + 7*4, tC, -1,BAS);
+takt++;
+
+add(  takt*32 + 0*4, tE, 0, MEL);
+add(  takt*32 + 1*4, tC,-2, BAS);
+add(  takt*32 + 2*4, 0,  0,  OFF);
+add(  takt*32 + 3*4, tC,-1, BAS);
+add(  takt*32 + 4*4, tD, 0, MEL);
+add(  takt*32 + 5*4, tG,-2, BAS);
+add(  takt*32 + 6*4, tF, 0, MEL);
+add(  takt*32 + 7*4, tG, -1,BAS);
+takt++;
+
+add(  takt*32 + 0*4, tE, 0, MEL);
+add(  takt*32 + 1*4, tC,-2, BAS);
+add(  takt*32 + 2*4, 0,  0,  OFF);
+add(  takt*32 + 3*4, tC,-1, BAS);
+add(  takt*32 + 4*4, 0, 0, OFF);
+add(  takt*32 + 5*4, tC,-2, BAS);
+add(  takt*32 + 6*4, tC, 0, MEL);
+add(  takt*32 + 7*4, tD, 0,MEL);
+takt++;
+
+add(  takt*32 + 0*4, tE, 0, MEL);
+add(  takt*32 + 1*4, tC,-2, BAS);
+add(  takt*32 + 2*4, tE,  0, MEL);
+add(  takt*32 + 3*4, tC,-1, BAS);
+add(  takt*32 + 4*4, tE,  0, MEL);
+add(  takt*32 + 5*4, tC,-2, BAS);
+add(  takt*32 + 6*4, tD,  0, MEL);
+add(  takt*32 + 7*4, tE,  0, MEL);
+takt++;
+
+add(  takt*32 + 0*4, tF, 0, MEL);
+add(  takt*32 + 1*4, tG,-2, BAS);
+add(  takt*32 + 2*4, tD, 0, MEL);
+add(  takt*32 + 3*4, tG,-2, BAS);
+//add(  takt*32 + 3.5*4, tD, 0, MEL);
+//add(  takt*32 + 3.75*4,0,0, OFF);
+add(  takt*32 + 4*4, tD, 0, MEL);
+add(  takt*32 + 5*4, tG,-2, BAS);
+add(  takt*32 + 6*4, tD,  0, MEL);
+add(  takt*32 + 7*4, tE,  0, MEL);
+takt++;
+
+add(  takt*32 + 0*4, tF, 0, MEL);
+add(  takt*32 + 1*4, tG,-2, BAS);
+add(  takt*32 + 2*4, tA,  1, MEL);
+add(  takt*32 + 3*4, tG,-1, BAS);
+add(  takt*32 + 4*4, tA,  1, MEL);
+add(  takt*32 + 5*4, tG,-2, BAS);
+add(  takt*32 + 6*4, tG,  0, MEL);
+add(  takt*32 + 7*4, tF,  0, MEL);
+takt++;
+
+add(  takt*32 + 0*4, tG, 0, MEL);
+add(  takt*32 + 1*4, tC,-2, BAS);
+add(  takt*32 + 2*4, tE, 0, MEL);
+add(  takt*32 + 3*4, tC,-2, BAS);
+//add(  takt*32 + 3.5*4, tE, 0, MEL);
+//add(  takt*32 + 3.75*4,0,0, OFF);
+add(  takt*32 + 4*4, tE, 0, MEL);
+add(  takt*32 + 5*4, tC,-2, BAS);
+add(  takt*32 + 6*4, tD,  0, MEL);
+add(  takt*32 + 7*4, tC,  -1, BAS);
+takt++;
+
+add(  takt*32 + 0*4, tC, 0, MEL);
+add(  takt*32 + 1*4, tC,-2, BAS);
+add(  takt*32 + 2*4, 0,  0,  OFF);
+add(  takt*32 + 3*4, tC,-1, BAS);
+add(  takt*32 + 4*4, tD, 0, MEL);
+add(  takt*32 + 5*4, tG,-2, BAS);
+add(  takt*32 + 6*4, 0,  0,  OFF);
+add(  takt*32 + 7*4, tG, -1,BAS);
+takt++;
+
+add(  takt*32 + 0*4, tE, 0, MEL);
+add(  takt*32 + 1*4, tC,-2, BAS);
+add(  takt*32 + 2*4, tA, 1,  MEL);
+add(  takt*32 + 3*4, tF,-2, BAS);
+add(  takt*32 + 4*4, tG, 0, MEL);
+add(  takt*32 + 5*4, tC,-2, BAS);
+add(  takt*32 + 6*4, tF, 0, MEL);
+add(  takt*32 + 7*4, tF,-2,BAS);
+takt++;
+
+add(  takt*32 + 0*4, tE, 0, MEL);
+add(  takt*32 + 1*4, tG,-2, BAS);
+add(  takt*32 + 2*4, tG,-1, BAS);
+add(  takt*32 + 3*4, tG,-2, BAS);
+add(  takt*32 + 4*4, tD, 0, MEL);
+add(  takt*32 + 5*4, tG,-2, BAS);
+add(  takt*32 + 6*4, tG,-1, BAS);
+add(  takt*32 + 7*4, tG,-2,BAS);
+takt++;
+
+add(  takt*32 + 0*4, tC, 0, MEL);
+add(  takt*32 + 1*4, tC,-2, BAS);
+add(  takt*32 + 2*4, tC,-1, BAS);
+add(  takt*32 + 3*4, tC,-2, BAS/2);
+add(  takt*32 + 4*4, tC,-1, BAS/2);
+add(  takt*32 + 5*4, tC,-2, BAS/3);
+add(  takt*32 + 6*4, tC,-1, BAS/3);
+add(  takt*32 + 7*4, tC,-2, BAS/4);
+takt++;
+
+add(  takt*32 + 0*4, tC,-1, BAS/4);
+add(  takt*32 + 1*4, tC,-2, BAS/5);
+add(  takt*32 + 2*4, tC,-1, BAS/6);
+add(  takt*32 + 3*4, tC,-2, BAS/7);
+add(  takt*32 + 4*4, tC,-1, BAS/8);
+add(  takt*32 + 5*4, tC,-2, BAS/9);
+add(  takt*32 + 6*4, tC,-1, BAS/10);
+add(  takt*32 + 7*4, tC,-2, BAS/12);
+takt++;
+
+add(  takt*32 + 0*4, 0, 0, OFF);
+
+onload = build;
+
+        
+        </script>
+    </head>
+
+
+
+</html>
