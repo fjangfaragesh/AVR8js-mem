@@ -272,8 +272,11 @@ int main(void){
 #ifndef F_CPU
 #define F_CPU 16000000UL // 16 MHz clock speed
 #endif
-const int NOTE_TICK_DURATION_MILLISECONDS = 10;//Simulation
-//const int NOTE_TICK_DURATION_MILLISECONDS = 100;//Real Arduino
+const int NOTE_TICK_DURATION_MILLISECONDS = 10;//schneller für Simulation
+//const int NOTE_TICK_DURATION_MILLISECONDS = 40;//Mit echten Arduino bitte dies verwenden!
+
+const float BASE_FREQ = 440.0;
+const float FRQ_MULT[] = {1.0,2.3,0.6,4.1};
 
 
 typedef struct {
@@ -282,24 +285,17 @@ typedef struct {
   int duration; // duration in note-ticks
 } Note;
 
-Note notes[7] = {
-  {.tone = -9.0, .pulseWidth = 0.5, .duration = 4},
-  {.tone = -5.0, .pulseWidth = 0.5, .duration = 4},
-  {.tone = -2.0, .pulseWidth = 0.5, .duration = 4},
-  {.tone = -5.0, .pulseWidth = 0.5, .duration = 4},
-  {.tone = -9.0, .pulseWidth = 0.5, .duration = 4},
-  {.tone = -21.0, .pulseWidth = 0.5, .duration = 4},
-  {.tone = -21.0, .pulseWidth = 0.1, .duration = 8}
-
-};
-int notesLength = 7;
+Note notes[] = {
+ {.tone=3,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=2,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=-2,.pulseWidth=0.25,.duration=4},{.tone=3,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=8,.pulseWidth=0.5,.duration=4},{.tone=-2,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=3,.pulseWidth=0.5,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=8,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=8,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=12,.pulseWidth=0.5,.duration=4},{.tone=-2,.pulseWidth=0.25,.duration=4},{.tone=12,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=10,.pulseWidth=0.5,.duration=4},{.tone=8,.pulseWidth=0.5,.duration=4},{.tone=10,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=3,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=0,.pulseWidth=1,.duration=4},{.tone=-2,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=12,.pulseWidth=0.5,.duration=4},{.tone=-16,.pulseWidth=0.25,.duration=4},{.tone=10,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=8,.pulseWidth=0.5,.duration=4},{.tone=-16,.pulseWidth=0.25,.duration=4},{.tone=7,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=-2,.pulseWidth=0.25,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=5,.pulseWidth=0.5,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=-2,.pulseWidth=0.25,.duration=4},{.tone=-14,.pulseWidth=0.25,.duration=4},{.tone=3,.pulseWidth=0.5,.duration=4},{.tone=-21,.pulseWidth=0.25,.duration=4},{.tone=-9,.pulseWidth=0.25,.duration=4},{.tone=-21,.pulseWidth=0.125,.duration=4},{.tone=-9,.pulseWidth=0.125,.duration=4},{.tone=-21,.pulseWidth=0.08333333333333333,.duration=4},{.tone=-9,.pulseWidth=0.08333333333333333,.duration=4},{.tone=-21,.pulseWidth=0.0625,.duration=4},{.tone=-9,.pulseWidth=0.0625,.duration=4},{.tone=-21,.pulseWidth=0.05,.duration=4},{.tone=-9,.pulseWidth=0.041666666666666664,.duration=4},{.tone=-21,.pulseWidth=0.03571428571428571,.duration=4},{.tone=-9,.pulseWidth=0.03125,.duration=4},{.tone=-21,.pulseWidth=0.027777777777777776,.duration=4},{.tone=-9,.pulseWidth=0.025,.duration=4},{.tone=-21,.pulseWidth=0.020833333333333332,.duration=4},{.tone=0,.pulseWidth=1,.duration=16},
+ };
+ int notesLength = sizeof(notes)/sizeof(Note);
 
 int calcOcrFq(int prescaler,float freq) {
   return (int)(F_CPU/(prescaler*freq) + 0.5) & 0xffff;
 }
 //toneId: ... ,A (440Hz) :0,  A# : 1, ... , C : 3, A (880Hz) : 12, ...
 int calcFreq(float toneId) {
-  return pow(2.0,toneId/12.0)*440.0;
+  return pow(2.0,toneId/12.0)*BASE_FREQ;
 }
 // pulseWidth between 0.0 and 1.0
 void playFq(int prescaler,float fq, float pulseWidth) {
@@ -316,11 +312,13 @@ int main(void){
   TCCR1B |= (1 << CS10) | (1 << CS11) | (1 << WGM13);
   OCR1A = 0;
   OCR1B = 500;
+  int n = 0;
   while(1) {
     for (int i = 0; i < notesLength; i++) {
-      playFq(64, calcFreq(notes[i].tone), notes[i].pulseWidth);
+      playFq(64, calcFreq(notes[i].tone)*FRQ_MULT[n%4], notes[i].pulseWidth);
       for (int t = 0; t < notes[i].duration; t++) _delay_ms(NOTE_TICK_DURATION_MILLISECONDS);
     }
+    n++;
   }
 }
 ```
