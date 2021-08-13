@@ -244,13 +244,13 @@ Einfach an Pin B2 (auf Arduino Pin Digital 10) mit einem Widerstand Kopfhörer o
 
             <!-- memout web komponenten -->
             <!-- Textausgaben -->
-    <b>PORTB: </b> <memout-element type="bin" address="0x25"></memout-element>
-    <b>DDRB: </b> <memout-element type="bin" address="0x24"></memout-element>
-    <b>PINB: </b> <memout-element type="bin" address="0x23"></memout-element><br>
-    <b>TCCR1: </b> <memout-element type="bin" address="0x80" bytes="2" endian="little"></memout-element><br>
-    <b>TCNT1: </b> <memout-element type="bin" address="0x84" bytes="2" endian="little"></memout-element><br>
-    <b>OCR1A: </b> <memout-element type="bin" address="0x88" bytes="2" endian="little"></memout-element><br>
-    <b>OCR1B: </b> <memout-element type="bin" address="0x88" bytes="2" endian="little"></memout-element><br>
+    <memout-element type="bin" address="PORTB"></memout-element>
+    <memout-element type="bin" address="DDRB"></memout-element>
+    <memout-element type="bin" address="PINB"></memout-element><br>
+    <memout-element type="bin" address="TCCR1" bytes="2" endian="little"></memout-element><br>
+    <memout-element type="bin" address="TCNT1" bytes="2" endian="little"></memout-element><br>
+    <memout-element type="bin" address="OCR1A" bytes="2" endian="little"></memout-element><br>
+    <memout-element type="bin" address="OCR1B" bytes="2" endian="little"></memout-element><br>
             <!-- Diagramm -->
     <memout-element
         type="diagram2"
