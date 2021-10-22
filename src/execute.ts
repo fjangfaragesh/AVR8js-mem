@@ -68,10 +68,10 @@ export class AVRRunner {
         while (true) {
             for (let i = 0; i < cyclesPerFrame; i++) {
                 avrInstruction(this.cpu);
-                this.timer0.tick();
-                this.timer1.tick();
-                this.timer2.tick();
-                this.usart.tick();
+                this.timer0.count();
+                this.timer1.count();
+                this.timer2.count();
+                this.usart.count();
 
                 const ucsra = this.cpu.data[usart0Config.UCSRA];
                 if (this.cpu.interruptsEnabled && ucsra & 0x20 && this.serialBuffer.length > 0) {
