@@ -2,7 +2,7 @@
   "name": "avr8js-template",
   "version": "1.0.0",
   "description": "A LiaScript wrapper for AVR8js",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "scripts": {
     "build": "npx parcel build src/index.ts",
     "watch": "npx parcel serve -p 3333 src/index.ts",
@@ -17,6 +17,7 @@
   "author": "André Dietrich",
   "license": "ISC",
   "dependencies": {
+    "avr8js": "^0.18.2",
     "@webcomponents/custom-elements": "^1.5.0",
     "@wokwi/elements": "^0.27.2",
     "echarts": "^5.2.1"
@@ -25,7 +26,6 @@
     "last 2 years"
   ],
   "devDependencies": {
-    "avr8js": "^0.18.2",
     "parcel": "^1.12.4",
     "typescript": "^4.4.4"
   }
