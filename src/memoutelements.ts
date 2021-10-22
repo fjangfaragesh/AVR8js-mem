@@ -270,7 +270,7 @@ class MemOutTypeDiagram extends MemOutType {
                     showSymbol: false,
                     hoverAnimation: false,
                     data: this._data
-            }];
+            }]
         });
     }
     
@@ -432,7 +432,7 @@ class MemOutTypeDiagram2 extends MemOutType {
                         show: false
                     }
             },
-            series: seriesArray;
+            series: seriesArray
         });
     }
     
@@ -529,7 +529,7 @@ class MemOutTypeDiagram2 extends MemOutType {
             if (this._datas[i] === undefined) this._datas[i] = [];
             this._datas[i].push([currentCycle,outpts[i]])
         }
-       );
+       
         this.showValue();
     }
     reset() : void {

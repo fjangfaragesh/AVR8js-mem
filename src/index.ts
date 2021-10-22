@@ -269,7 +269,7 @@ class ConnectableSevenSegmentElement implements ConnectableComponent {
                     value & 128,
                     value & 256
             ];
-        }
+        })
     }
 }
 
