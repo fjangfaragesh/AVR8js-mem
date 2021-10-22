@@ -5,7 +5,7 @@ async function compileAndRun(codeString,divId, cyclesPerFrame,frameDelayMillisec
     serialOutputHanlder("compiling...");
     let e = await AVR8js.build(codeString , []);
     console.log(e);
-    if (e.stderr) {
+    if (e.hex === "") {
         let msgs = []
 
         for(let i = 0; i<name.length; i++) {
