@@ -131,7 +131,7 @@ void loop() {
             <!-- Diagramm -->
     <memout-element
         type="diagram2"
-        outputs="[bytesToInt(data[0x84],data[0x85]), bytesToInt(data[0x88],data[0x89]), bytesToInt(data[0x84],data[0x85]) < bytesToInt(data[0x88],data[0x89]) ? 300 : 260]"
+        outputs="[bytesToInt(data[0x84],data[0x85]), bytesToInt(data[0x88],data[0x89]), extractBit(data[0x23],1)*35 + 260]"
         color="blue"
         min="0"
         max="300"
@@ -190,7 +190,7 @@ int main(void){
             <!-- Diagramm -->
     <memout-element
         type="diagram2"
-        outputs="[bytesToInt(data[0x84],data[0x85]), bytesToInt(data[0x88],data[0x89]), bytesToInt(data[0x84],data[0x85]) < bytesToInt(data[0x88],data[0x89]) ? 300 : 260]"
+        outputs="[bytesToInt(data[0x84],data[0x85]), bytesToInt(data[0x88],data[0x89]), extractBit(data[0x23],1)*35 + 260]"
         color="blue"
         min="0"
         max="300"
@@ -254,7 +254,7 @@ Einfach an Pin B2 (auf Arduino Pin Digital 10) mit einem Widerstand Kopfhörer o
             <!-- Diagramm -->
     <memout-element
         type="diagram2"
-        outputs="[bytesToInt(data[0x84],data[0x85]), bytesToInt(data[0x88],data[0x89]), bytesToInt(data[AVR8_REGISTER.OCR1BL],data[AVR8_REGISTER.OCR1BH]),(bytesToInt(data[0x84],data[0x85]) < bytesToInt(data[AVR8_REGISTER.OCR1BL],data[AVR8_REGISTER.OCR1BH]))*450 + 2500]"
+        outputs="[bytesToInt(data[0x84],data[0x85]), bytesToInt(data[0x88],data[0x89]), bytesToInt(data[AVR8_REGISTER.OCR1BL],data[AVR8_REGISTER.OCR1BH]),extractBit(data[0x23],2)*450 + 2500]"
         color="blue"
         min="0"
         max="3000"
