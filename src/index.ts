@@ -206,7 +206,6 @@ window.AVR8js = {
     runner.usart.onLineTransmit = (value) => {
       log(value);
     };
-
     const timeSpan = container.querySelector("#simulation-time")
     runner.execute(cpu => {
     for (let m of MemOuts) m.updateData(cpu.data, cpu.cycles);

@@ -72,7 +72,7 @@ export class AVRRunner {
                 //this.timer1.count();
                 //this.timer2.count();
                 //this.usart.tick();
-                //this.cpu.tick(); //???????
+                this.cpu.tick(); //???????
 
                 const ucsra = this.cpu.data[usart0Config.UCSRA];
                 if (this.cpu.interruptsEnabled && ucsra & 0x20 && this.serialBuffer.length > 0) {

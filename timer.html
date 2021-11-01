@@ -67,7 +67,7 @@ int main(void){
         <div id="divId">
             cyclesPerFrame:<input type="text" id="cyclesPerFrame" value="1000"><br>
             interFrameDelayMilliseconds:<input type="text" id="frameDelayMilliseconds" value="0"><br>
-            <input type="button" value="RUN" onclick="this.disabled=true; compileAndRun(document.getElementById('code').value,'divId',document.getElementById('cyclesPerFrame').value*1, document.getElementById('frameDelayMilliseconds').value*1)"><br>
+            <input type="button" value="RUN" onclick="this.disabled=true; compileAndRun(document.getElementById('code').value,'divId',document.getElementById('cyclesPerFrame').value*1, document.getElementById('frameDelayMilliseconds').value*1, undefined, console.log)"><br>
             
             <wokwi-led color="red"   pin="10" label="13"></wokwi-led>
             
