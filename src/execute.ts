@@ -1,6 +1,8 @@
 import {
   avrInstruction,
   AVRTimer,
+  AVRADC,
+  adcConfig,
   CPU,
   timer0Config,
   timer1Config,
@@ -30,6 +32,7 @@ export class AVRRunner {
     readonly timer1: AVRTimer;
     readonly timer2: AVRTimer;
     readonly usart: AVRUSART;
+    readonly adc: AVRADC;
     readonly port = new Map<PORT, AVRIOPort>();
     readonly MHZ = 16e6;
     public serialBuffer: Array<number>;
@@ -44,7 +47,8 @@ export class AVRRunner {
         this.timer1  = new AVRTimer(this.cpu, timer1Config);
         this.timer2  = new AVRTimer(this.cpu, timer2Config);
 
-
+        this.adc = new AVRADC(this.cpu,adcConfig);
+                
         //this.port.set('A', new AVRIOPort(this.cpu, portAConfig));
         this.port.set('B', new AVRIOPort(this.cpu, portBConfig));
         this.port.set('C', new AVRIOPort(this.cpu, portCConfig));

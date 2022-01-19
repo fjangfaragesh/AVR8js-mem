@@ -10,7 +10,8 @@ import {
   BuzzerElement,
   LEDElement,
   PushbuttonElement,
-  SevenSegmentElement
+  SevenSegmentElement,
+  AnalogJoystickElement
 } from "@wokwi/elements";
 
 declare const window: any;
@@ -122,12 +123,13 @@ window.AVR8js = {
     const SEG7 = container.querySelectorAll<SevenSegmentElement & HTMLElement>("wokwi-7segment");
     const BUZZER = container.querySelectorAll<BuzzerElement & HTMLElement>("wokwi-buzzer");
     const PushButton = container.querySelectorAll<PushbuttonElement & HTMLElement>("wokwi-pushbutton");
+    const analogJoysticks = container.querySelectorAll<AnalogJoystickElement & HTMLElement>("wokwi-analog-joystick");
     
     for (let led of LEDs) connectableComponents.push(new ConnectableLED(led));
     for (let s7 of SEG7) connectableComponents.push(new ConnectableSevenSegmentElement(s7));
     for (let buzzer of BUZZER) connectableComponents.push(new ConnectableBuzzer(buzzer));
     for (let buttons of PushButton) connectableComponents.push(new ConnectablePushButton(buttons));
-
+    for (let analogJoystick of analogJoysticks) connectableComponents.push(new ConnectableJoyStick(analogJoystick));
     
     const MemOuts = container.querySelectorAll<MemOutElement & HTMLElement>("memout-element");
     for (let m of MemOuts) m.reset();
@@ -139,7 +141,7 @@ window.AVR8js = {
     cyclesPerFrame = cyclesPerFrame || 500000;
     frameDelayMilliseconds = frameDelayMilliseconds || 0;
         
-    for (const cc of connectableComponents) cc.connect(runner.port);
+    for (const cc of connectableComponents) cc.connect(runner.port, runner.adc);
 /*    for(const PORT of PORTS) {
       // Hook to PORTB register
       const port = runner.port.get(PORT)
@@ -220,7 +222,7 @@ window.AVR8js = {
 
 
 interface ConnectableComponent {
-    connect(ports:Map<PORT, AVRIOPort>);
+    connect(ports:Map<PORT, AVRIOPort>, adc: AVRADC);
 }
 
 
@@ -230,7 +232,7 @@ class ConnectableLED implements ConnectableComponent {
     constructor(ledElement: LEDElement) {
         this.element = ledElement;
     }
-    connect(ports:Map<PORT, AVRIOPort>) {
+    connect(ports:Map<PORT, AVRIOPort>, adc: AVRADC) {
         let [pin, prt] = pinPort(this.element);// get pin number and port name
         if (prt === null || prt === undefined) return;
         const port = ports.get(prt);
@@ -251,7 +253,7 @@ class ConnectableSevenSegmentElement implements ConnectableComponent {
     constructor(sevenSegmentElement: SevenSegmentElement) {
         this.element = sevenSegmentElement;
     }
-    connect(ports:Map<PORT, AVRIOPort>) {
+    connect(ports:Map<PORT, AVRIOPort>, adc: AVRADC) {
         let [pin, prt] = pinPort(this.element);// get pin number and port name
         if (prt === null || prt === undefined) return;
         const port = ports.get(prt);
@@ -279,7 +281,7 @@ class ConnectableBuzzer implements ConnectableComponent {
     constructor(buzzerElement: BuzzerElement) {
         this.element = buzzerElement;
     }
-    connect(ports:Map<PORT, AVRIOPort>) {
+    connect(ports:Map<PORT, AVRIOPort>, adc: AVRADC) {
         let [pin, prt] = pinPort(this.element);// get pin number and port name
         if (prt === null || prt === undefined) return;
         const port = ports.get(prt);
@@ -300,7 +302,7 @@ class ConnectablePushButton implements ConnectableComponent {
     constructor(pushButtonElement: PushbuttonElement) {
         this.element = pushButtonElement;
     }
-    connect(ports:Map<PORT, AVRIOPort>) {
+    connect(ports:Map<PORT, AVRIOPort>, adc: AVRADC) {
         let [pin, prt] = pinPort(this.element);// get pin number and port name
         if (prt === null || prt === undefined) return;
         const port = ports.get(prt);
@@ -310,16 +312,60 @@ class ConnectablePushButton implements ConnectableComponent {
         this.element.addEventListener("button-press", () => {
  //         if (runner) {   // da muss ich mir noch was überlegen `hust hust`
                 port.setPin(pin, true);
-                console.log("knopp runter gedrückt, der pin " + pin + " is jetzt gesetzt!");
 //          }
         });
         this.element.addEventListener("button-release", () => {
  //           if (runner) {
                 port.setPin(pin, false);
-                console.log("knopp los gelassen, der pin " + pin + " is jetzt ni mehr gesetzt!");
 //            }
         });
         
         port.setPin(pin, false);
+    }
+}
+
+
+class ConnectableJoyStick implements ConnectableComponent {
+    constructor(analogJoystickElement: AnalogJoystickElement) {
+        this.element = analogJoystickElement;
+    }
+    connect(ports:Map<PORT, AVRIOPort>, adc: AVRADC) {
+        let current = this;
+        
+        let analogPinNumberX = Math.round(this.element.getAttribute("xAnalogPinNumber") ?? undefined);
+        if (isNaN(analogPinNumberX)) analogPinNumberX = undefined;
+        let analogPinNumberY = Math.round(this.element.getAttribute("yAnalogPinNumber") ?? undefined);
+        if (isNaN(analogPinNumberY)) analogPinNumberY = undefined;
+        
+        let uNegative = (this.element.getAttribute("uNegative") ?? undefined)*1.0;
+        if (isNaN(uNegative)) uNegative = 0.0;
+        let uPositive = (this.element.getAttribute("uPositive") ?? undefined)*1.0;
+        if (isNaN(uPositive)) uPositive = 5.0;
+    
+                         
+        //button
+        let [pin, prt] = pinPort(this.element);
+        const port = (prt === null || prt === undefined) ? undefined : ports.get(prt);
+
+        
+        
+                         
+                         
+        
+        this.element.addEventListener("button-press", () => {
+            if (port !== undefined) port.setPin(pin, true);
+        });
+        this.element.addEventListener("button-release", () => {
+            if (port !== undefined) port.setPin(pin, false);
+
+        });
+        this.element.addEventListener("input", () => {
+                if (analogPinNumberX !== undefined) adc.channelValues[analogPinNumberX] = ((current.element.xValue+1)/2)*(uPositive-uNegative) + uNegative;
+                if (analogPinNumberY !== undefined) adc.channelValues[analogPinNumberY] = ((current.element.yValue+1)/2)*(uPositive-uNegative) + uNegative;
+        });
+        
+        if (analogPinNumberX !== undefined) adc.channelValues[analogPinNumberX] = (uPositive-uNegative)/2.0;
+        if (analogPinNumberY !== undefined) adc.channelValues[analogPinNumberY] = (uPositive-uNegative)/2.0;
+        if (port !== undefined) port.setPin(pin, false);
     }
 }

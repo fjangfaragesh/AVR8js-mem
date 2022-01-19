@@ -365,3 +365,34 @@ int main (void) {
 }
 ```
 @AVR8jsMem.sketch(example_div6_id,100000,1)
+
+
+## Beispiel 7 ADC mit JoyStick
+
+Button an Pin 10, x an A0 und y an A1 angeschlossen.
+
+<lia-keep>
+    <div id="example_div7_id">
+        <span id="simulation-time"></span><br>
+         <wokwi-analog-joystick pin="10" xAnalogPinNumber="0" yAnalogPinNumber="1" uNegative="0" uPositive="5"></wokwi-analog-joystick><br>
+    </div>
+</lia-keep>
+
+``` cpp
+void setup() {
+   pinMode(A0,INPUT);
+   pinMode(A1,INPUT);
+   pinMode(10,INPUT);
+   Serial.begin(9600);
+}
+void loop() {
+  Serial.print("x=");
+  Serial.print(analogRead(A0));
+  Serial.print(" y=");
+  Serial.print(analogRead(A1));
+  Serial.print(" button=");
+  Serial.println(digitalRead(10));
+  delay(25);
+}
+```
+@AVR8jsMem.sketch(example_div7_id,100000,1)
