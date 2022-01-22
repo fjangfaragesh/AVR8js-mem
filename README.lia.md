@@ -396,3 +396,26 @@ void loop() {
 }
 ```
 @AVR8jsMem.sketch(example_div7_id,100000,1)
+
+## Beispiel 8 ADC
+
+Button an Pin 10, x an A0 und y an A1 angeschlossen.
+
+<lia-keep>
+    <div id="example_div8_id">
+        <span id="simulation-time"></span><br>
+         <voltage-slider-element min="0.0" max="5.0" value="1.0" analogPinNumber="0"></voltage-slider-element><br>
+    </div>
+</lia-keep>
+
+``` cpp
+void setup() {
+   pinMode(A0,INPUT);
+   Serial.begin(9600);
+}
+void loop() {
+  Serial.println(analogRead(A0));
+  delay(25);
+}
+```
+@AVR8jsMem.sketch(example_div8_id,100000,1)

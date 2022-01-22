@@ -1,5 +1,6 @@
 import "@wokwi/elements";
 import "./memoutelements";
+import "./webelements";
 import { AVRRunner, PORT } from "./execute";
 import { formatTime } from "./format-time";
 //import { WS2812Controller } from "./ws2812";
@@ -70,7 +71,6 @@ function pinPort(e:any) : [number | null, string | null]{
 
 
 
-
 window.AVR8js = {
   build: async function (sketch:string, files = []) {
     if (!window.__AVR8jsCache) {
@@ -124,12 +124,14 @@ window.AVR8js = {
     const BUZZER = container.querySelectorAll<BuzzerElement & HTMLElement>("wokwi-buzzer");
     const PushButton = container.querySelectorAll<PushbuttonElement & HTMLElement>("wokwi-pushbutton");
     const analogJoysticks = container.querySelectorAll<AnalogJoystickElement & HTMLElement>("wokwi-analog-joystick");
+    const voltageSliders = container.querySelectorAll<VoltageSliderElement & HTMLElement>("voltage-slider-element");
     
     for (let led of LEDs) connectableComponents.push(new ConnectableLED(led));
     for (let s7 of SEG7) connectableComponents.push(new ConnectableSevenSegmentElement(s7));
     for (let buzzer of BUZZER) connectableComponents.push(new ConnectableBuzzer(buzzer));
     for (let buttons of PushButton) connectableComponents.push(new ConnectablePushButton(buttons));
     for (let analogJoystick of analogJoysticks) connectableComponents.push(new ConnectableJoyStick(analogJoystick));
+    for (let voltageSlider of voltageSliders) connectableComponents.push(new ConnectableVoltageSlider(voltageSlider));
     
     const MemOuts = container.querySelectorAll<MemOutElement & HTMLElement>("memout-element");
     for (let m of MemOuts) m.reset();
@@ -369,3 +371,28 @@ class ConnectableJoyStick implements ConnectableComponent {
         if (port !== undefined) port.setPin(pin, false);
     }
 }
+
+class ConnectableVoltageSlider implements ConnectableComponent {
+    constructor(voltageSliderElement: VoltageSliderElement) {
+        this.element = voltageSliderElement;
+    }
+    connect(ports:Map<PORT, AVRIOPort>, adc: AVRADC) {
+        let current = this;
+        
+        let analogPinNumber = Math.round(this.element.getAttribute("analogPinNumber") ?? undefined);
+        if (isNaN(analogPinNumber)) analogPinNumber = undefined;
+
+    
+        
+                         
+                         
+    
+        this.element.addEventListener("input", () => {
+                if (analogPinNumber !== undefined) adc.channelValues[analogPinNumber] = ((current.element.value+1)/2);
+        });
+        
+        adc.channelValues[analogPinNumber] = ((current.element.value+1)/2);
+    }
+}
+
+
