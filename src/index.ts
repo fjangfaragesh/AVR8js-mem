@@ -362,8 +362,8 @@ class ConnectableJoyStick implements ConnectableComponent {
 
         });
         this.element.addEventListener("input", () => {
-                if (analogPinNumberX !== undefined) adc.channelValues[analogPinNumberX] = ((current.element.xValue+1)/2)*(uPositive-uNegative) + uNegative;
-                if (analogPinNumberY !== undefined) adc.channelValues[analogPinNumberY] = ((current.element.yValue+1)/2)*(uPositive-uNegative) + uNegative;
+                if (analogPinNumberX !== undefined) adc.channelValues[analogPinNumberX] = ((current.element.xValue*1.0+1)/2)*(uPositive-uNegative) + uNegative;
+                if (analogPinNumberY !== undefined) adc.channelValues[analogPinNumberY] = ((current.element.yValue*1.0+1)/2)*(uPositive-uNegative) + uNegative;
         });
         
         if (analogPinNumberX !== undefined) adc.channelValues[analogPinNumberX] = (uPositive-uNegative)/2.0;
