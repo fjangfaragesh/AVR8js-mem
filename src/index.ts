@@ -388,10 +388,10 @@ class ConnectableVoltageSlider implements ConnectableComponent {
                          
     
         this.element.addEventListener("input", () => {
-                if (analogPinNumber !== undefined) adc.channelValues[analogPinNumber] = ((current.element.value+1)/2);
+                if (analogPinNumber !== undefined) adc.channelValues[analogPinNumber] = current.element.value*1.0;
         });
         
-        adc.channelValues[analogPinNumber] = ((current.element.value+1)/2);
+        adc.channelValues[analogPinNumber] = current.element.value*1.0;
     }
 }
 
